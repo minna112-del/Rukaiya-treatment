@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="bn" translate="no" class="notranslate">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
@@ -14,6 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="রুকইয়াহ শিফা — MT Studio"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="description" content="কুরআন ও সুন্নাহের আলোকে রুকইয়াহ: তিলাওয়াত, দোয়া, দৈনিক সুরক্ষা রুটিন ও তাসবীহ — MT Studio AI"/>
+<meta name="google" content="notranslate"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%95%8C%3C/text%3E%3C/svg%3E"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="রুকইয়াহ শিফা — কুরআন ও সুন্নাহভিত্তিক চিকিৎসা | MT Studio AI"/>
@@ -552,7 +553,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 
 <!-- ── REAL-TIME STATS BAR ── -->
 <div class="stats-bar">
-  <div class="stat-pill">👁️ এই ডিভাইসে ভিজিট <span class="sv" id="totalViews">—</span></div>
+  <div class="stat-pill">👁️ ভিউ <span class="sv" id="totalViews">—</span></div>
   <div class="stat-pill">❤️ লাইক <span class="sv" id="totalLikesBar">—</span></div>
   <div class="stat-pill">⭐ রেটিং <span class="sv" id="avgRatingBar">—</span></div>
 </div>
@@ -667,9 +668,9 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     </div>
     <div class="sub-content" id="sc-duaplayer">
       <div class="card" style="margin-bottom:16px">
-        <div class="card-label">দোয়া তিলাওয়াত প্লেয়ার</div>
-        <div class="card-title">শুনে শুনে মোনাজাত করুন</div>
-        <div class="card-ref">যারা দোয়া পারেন না, তারা এখান থেকে দোয়া শুনে মনে মনে আমিন বলুন।</div>
+        <div class="card-label">বাংলায় মোনাজাত</div>
+        <div class="card-title">বাংলায় মোনাজাত পড়ুন</div>
+        <div class="card-ref">এগুলো কুরআনের আয়াত নয় — বাংলায় নিজের ভাষায় মোনাজাতের নমুনা। নিজের কথায়ও দোয়া করতে পারেন।</div>
       </div>
       <div class="surah-list" id="surahListDua"></div>
     </div>
@@ -907,7 +908,6 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     <div class="community-header">
       <div>
         <div class="community-title">🌟 কমিউনিটি রিভিউ</div>
-        <div class="community-sub">আপনার অভিজ্ঞতা লিখুন — এই সংস্করণে এটা শুধু আপনার ডিভাইসে থাকবে, সবার কাছে প্রকাশ হবে না</div>
       </div>
     </div>
 
@@ -1017,7 +1017,6 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     <textarea class="lc-input" id="lcInput" placeholder="প্রশ্ন লিখুন..." rows="1" onkeydown="lcKeyDown(event)" oninput="lcAutoResize(this)"></textarea>
     <button class="lc-send" id="lcSendBtn" onclick="lcSend()" aria-label="প্রশ্ন পাঠান">➤</button>
   </div>
-  <div class="lc-footer-note">MT Studio AI • ChatGPT (OpenAI) দিয়ে চলে • সাধারণ তথ্য মাত্র</div>
 </div>
 
 <div class="toast-container" id="toastAlert"><span class="toast-icon">✨</span><span id="toastMessage">সম্পন্ন!</span></div>
@@ -1270,10 +1269,11 @@ const RUQYAH_LIST=[
 const BAQARAH_LIST=[
   {arabic:"سُورَةُ الْبَقَرَةِ",bn:"সূরা বাকারাহ — সম্পূর্ণ",info:"২৮৬ আয়াত • শয়তান বিতাড়িত করে",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌿",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/2.mp3",ytId:"2Xt94RqJI1g"}
 ];
-const DUA_LIST=[
-  {arabic:"سُورَةُ الْبَقَرَةِ — آخِر آيَتَيْن",bn:"বাকারাহ — শেষ ২ আয়াত",info:"বাকারাহ ২৮৫–২৮৬ • রাতের সুরক্ষা",qari:"মিশারি রাশিদ আলাফাসি",cover:"🤲",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/285.mp3",ytId:"tKWeL2G9Y4Y"},
-  {arabic:"آيَةُ الْكُرْسِيّ",bn:"আয়াতুল কুরসি",info:"বাকারাহ ২৫৫",qari:"মিশারি রাশিদ আলাফাসি",cover:"🛡️",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/255.mp3",ytId:"_m1L_fOLs-g"},
-  {arabic:"سُورَةُ الْفَلَقِ",bn:"সূরা আল-ফালাক",info:"সূরা ১১৩ (নাস রুকইয়াহ তালিকায় আছে)",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌠",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/113.mp3",ytId:"gDlMzF3KEKE"}
+const MONAJAT_LIST=[
+  {title:"ক্ষমা ও তওবার মোনাজাত",text:"হে আল্লাহ, আমি আমার জানা-অজানা সব গুনাহের জন্য আপনার কাছে ক্ষমা চাই। আমার অন্তরকে পরিষ্কার করে দিন, আমাকে সঠিক পথে ফিরিয়ে আনুন এবং আপনার রহমত থেকে আমাকে বঞ্চিত করবেন না। আমীন।"},
+  {title:"শিফা ও সুরক্ষার মোনাজাত",text:"হে শিফা দানকারী আল্লাহ, আমার শরীর ও মনকে সুস্থ করে দিন। বদ নজর, হিংসা ও সব ধরনের অনিষ্ট থেকে আমাকে ও আমার পরিবারকে হেফাজত করুন। আপনার কাছেই সব শিফা, আপনিই একমাত্র ভরসা। আমীন।"},
+  {title:"পরিবার ও রিজিকের মোনাজাত",text:"হে আল্লাহ, আমার পরিবারে শান্তি ও ভালোবাসা দিন, আমাদের রিজিকে বরকত দিন এবং হালাল পথে চলার তাওফিক দিন। আমাদের সন্তানদেরকে ভালো মানুষ হিসেবে গড়ে তুলুন এবং সব বিপদ থেকে রক্ষা করুন। আমীন।"},
+  {title:"সকাল-সন্ধ্যার মোনাজাত",text:"হে আল্লাহ, আজকের দিনটি আপনার নামে শুরু করছি। সারাদিনের সব কাজে আমাকে সাহায্য করুন, ভুল থেকে বাঁচান, ধৈর্য দিন এবং রাতে শান্তিতে ঘুমানোর তাওফিক দিন। আপনার হেফাজতেই আমি সকাল করি, আপনার হেফাজতেই সন্ধ্যা করি। আমীন।"}
 ];
 
 let activePlaylist=RUQYAH_LIST,currentTrackIndex=0;
@@ -1336,6 +1336,17 @@ function buildList(id,list){
     </div>`).join('');
 }
 
+function renderMonajat(){
+  const el=document.getElementById('surahListDua');
+  if(!el) return;
+  el.innerHTML=MONAJAT_LIST.map((m,i)=>`
+    <div class="card" style="margin-bottom:14px;text-align:left;">
+      <div class="card-label">মোনাজাত ${i+1}</div>
+      <div class="card-title" style="font-size:15px;">${m.title}</div>
+      <p style="font-size:13.5px;line-height:1.9;color:var(--text);margin-top:8px;">${m.text}</p>
+    </div>`).join('');
+}
+
 function switchTilawatMode(mode,btn){
   document.querySelectorAll('#tilawat .sub-content').forEach(el=>el.classList.remove('show'));
   document.querySelectorAll('#tilawat .sub-mode-btn').forEach(b=>b.classList.remove('active'));
@@ -1343,7 +1354,7 @@ function switchTilawatMode(mode,btn){
   btn.classList.add('active');
   if(mode==='ruqyah')activePlaylist=RUQYAH_LIST;
   else if(mode==='baqarah')activePlaylist=BAQARAH_LIST;
-  else activePlaylist=DUA_LIST;
+  else if(mode==='duaplayer'){ /* মোনাজাত শুধু পড়ার জন্য, অডিও প্লেলিস্ট বদলাবে না */ }
 }
 
 function toggleYT(){
@@ -1702,7 +1713,7 @@ async function initApp(){
   // Build playlists
   buildList('surahListRuqyah',RUQYAH_LIST);
   buildList('surahListBaqarah',BAQARAH_LIST);
-  buildList('surahListDua',DUA_LIST);
+  renderMonajat();
   renderUqood();
   updatePaperVerses();
 
