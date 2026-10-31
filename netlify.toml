@@ -1,0 +1,5 @@
+# Netlify সেটিংস — functions ফোল্ডার ঘোষণা।
+# আপনার সাইটের publish/build সেটিংস আগে থেকে ঠিক থাকলে সেগুলো এখানে
+# বদলাবেন না; শুধু এই functions সেটিংসটুকু দরকার।
+[build]
+  functions = "netlify/functions"

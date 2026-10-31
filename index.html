@@ -13,11 +13,16 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="রুকইয়াহ শিফা — MT Studio"/>
 <meta name="mobile-web-app-capable" content="yes"/>
-<meta name="description" content="কুরআন ও সুন্নাহের আলোকে চিকিৎসা — MT Studio AI"/>
+<meta name="description" content="কুরআন ও সুন্নাহের আলোকে রুকইয়াহ: তিলাওয়াত, দোয়া, দৈনিক সুরক্ষা রুটিন ও তাসবীহ — MT Studio AI"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%95%8C%3C/text%3E%3C/svg%3E"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="রুকইয়াহ শিফা — কুরআন ও সুন্নাহভিত্তিক চিকিৎসা | MT Studio AI"/>
+<meta property="og:description" content="বদ নজর, হিংসা ও আধ্যাত্মিক সুরক্ষায় কুরআন ও সুন্নাহভিত্তিক সাধারণ নির্দেশনা, তিলাওয়াত ও দোয়া।"/>
+<meta property="og:locale" content="bn_BD"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Serif+Bengali:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- html2canvas এখন শুধু পেপার সেভ চাপলে লোড হয় (lazy load), পেজ লোডে নয়। -->
 <style>
 :root{
   /* ── MT Studio Brand Colors ── */
@@ -512,12 +517,12 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
   <div class="loader-bar"></div>
 </div>
 
-<div id="offlineBanner">⚠️ ইন্টারনেট সংযোগ নেই — অফলাইন মোডে চলছে</div>
+<div id="offlineBanner">⚠️ ইন্টারনেট সংযোগ নেই — লেখা পড়া যাবে, কিন্তু অডিও/ভিডিও ও AI চ্যাট চলবে না</div>
 <div id="installPrompt">
   <div class="install-icon">📱</div>
   <div class="install-text">
     <div class="install-title">হোম স্ক্রিনে যোগ করুন</div>
-    <div class="install-sub">MT Studio অ্যাপ হিসেবে ইন্সটল করুন</div>
+    <div class="install-sub">ব্রাউজারের মেনু থেকে হোম স্ক্রিনে যোগ করুন। অফলাইন অডিও/ভিডিও সমর্থিত নয়।</div>
   </div>
   <div class="install-btns">
     <button class="btn-install" id="btnInstall">ইন্সটল</button>
@@ -529,7 +534,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 
 <div id="updateToast">
   <div class="update-title">✨ নতুন আপডেট পাওয়া গেছে! (ভার্সন ৫.০)</div>
-  <div class="update-desc">MT Studio-র নতুন ব্র্যান্ড ডিজাইন, কমিউনিটি ফিচার ও আরও অনেক কিছু আপডেট হয়েছে।</div>
+  <div class="update-desc">ChatGPT চ্যাট, স্থানীয়ভাবে সংরক্ষিত কমিউনিটি ফিচার, ডিসক্লেইমার ও নিরাপত্তা সংশোধন এসেছে।</div>
   <button class="update-btn" onclick="applyAppUpdate()">এখনই আপডেট করুন</button>
 </div>
 
@@ -547,15 +552,15 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 
 <!-- ── REAL-TIME STATS BAR ── -->
 <div class="stats-bar">
-  <div class="stat-pill live">🟢 এখন দেখছে <span class="sv" id="liveCount">—</span> জন</div>
-  <div class="stat-pill">👁️ মোট ভিজিট <span class="sv" id="totalViews">—</span></div>
+  <div class="stat-pill">👁️ এই ডিভাইসে ভিজিট <span class="sv" id="totalViews">—</span></div>
   <div class="stat-pill">❤️ লাইক <span class="sv" id="totalLikesBar">—</span></div>
   <div class="stat-pill">⭐ রেটিং <span class="sv" id="avgRatingBar">—</span></div>
 </div>
+<p style="text-align:center;font-family:var(--sans);font-size:11px;color:var(--dim-l);padding:0 16px 6px;">এই সংস্করণে ভিউ/লাইক/রেটিং/মন্তব্য শুধু আপনার ডিভাইসে সংরক্ষিত হয়, সবার কাছে প্রকাশ হয় না।</p>
 
 <div class="wrap">
   <header>
-    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="bismillah" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
     <div class="bismillah-trans">পরম করুণাময় অসীম দয়ালু আল্লাহর নামে</div>
     <div class="star-line"><span class="star">✦  رُقْيَة شَرْعِيَّة  ✦</span></div>
     <h1>বদ নজর, হিংসা, আছর, দুষ্ট জ্বীন, কালো জাদু থেকে কুরআন ও সুন্নাহের আলোকে মুক্তির পথ</h1>
@@ -675,9 +680,9 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
   <section id="lakkhon" class="section">
     <div class="sec-header"><span class="sec-icon">🔍</span><span class="sec-title">লক্ষণ ও ডায়াগনোসিস</span></div>
     <div class="card">
-      <div class="card-label">স্বয়ংক্রিয় ডায়াগনোসিস</div>
+      <div class="card-label">লক্ষণভিত্তিক সাধারণ নির্দেশনা (ডায়াগনোসিস নয়)</div>
       <div class="card-title">বর্তমান লক্ষণসমূহ সিলেক্ট করুন</div>
-      <div class="card-ref">আপনার সমস্যার উপর ভিত্তি করে রুকইয়াহ প্রেসক্রিপশন তৈরি হবে</div>
+      <div class="card-ref">এটা চিকিৎসা-নির্ণয় নয়। তীব্র, হঠাৎ বা দীর্ঘস্থায়ী শারীরিক লক্ষণে আগে চিকিৎসকের পরামর্শ নিন।</div>
       <div class="symptom-grid">
         <label class="symptom-label"><input type="checkbox" value="eye" onchange="runSymptomCheck();toggleSelected(this)"><span>নামাজ ও কুরআন তিলাওয়াত শুনলে অতিরিক্ত হাই আসা বা ক্লান্তি</span></label>
         <label class="symptom-label"><input type="checkbox" value="magic" onchange="runSymptomCheck();toggleSelected(this)"><span>হঠাৎ বিনা কারণে পরিবারের প্রতি চরম ক্ষোভ ও বিরাগ</span></label>
@@ -692,7 +697,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
           <div class="timer-text-digits" id="timerDigits">02:00</div>
         </div>
         <p style="font-size:13.5px;color:#fffbe0;margin-bottom:12px;font-weight:600;">মনে মনে নিচের আয়াতটি জপ করতে থাকুন:</p>
-        <div class="arabic" style="font-size:26px;text-align:center;margin:10px 0;background:none;border:none;padding:0;color:var(--cyan-l);">إِنَّ اللَّهَ سَيُبْطِلُهُ</div>
+        <div class="arabic" lang="ar" dir="rtl" style="font-size:26px;text-align:center;margin:10px 0;background:none;border:none;padding:0;color:var(--cyan-l);">إِنَّ اللَّهَ سَيُبْطِلُهُ</div>
         <p style="font-size:12px;color:var(--cyan-l);margin-bottom:18px;">"ইন্নাল্লাহা সাইউবত্বিলুহু"</p>
         <div class="timer-controls">
           <button class="timer-btn-action" id="timerStartBtn" onclick="toggleDiagnosticTimer()">টাইমার শুরু করুন</button>
@@ -800,7 +805,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
         <div class="paper-preview-container">
           <span style="color:var(--cyan-l);font-size:12px;font-weight:600;display:block;margin-bottom:8px;">লাইভ প্রিভিউ (২.২" × ১")</span>
           <div class="paper-box-ui" id="paperPreviewContainer"></div>
-          <p style="font-size:12.5px;color:var(--dim-l);margin:15px 0;line-height:1.6;">প্রিন্ট করুন অথবা মোবাইলের গ্যালারিতে সেভ করুন।</p>
+          <p style="font-size:12.5px;color:var(--dim-l);margin:15px 0;line-height:1.6;">প্রিন্ট করুন অথবা মোবাইলের গ্যালারিতে সেভ করুন। ছোট পেপারের জন্য ফন্ট ছোট রাখা হয়েছে — পড়তে অসুবিধা হলে স্লাইডার দিয়ে ফন্ট বড় করুন।</p>
           <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
             <button class="diag-btn" onclick="window.print()">🖨️ প্রিন্ট করুন</button>
             <button class="diag-btn" style="background:var(--grad-btn);border-color:var(--cyan);" onclick="savePaperAsImage()">💾 গ্যালারিতে সেভ</button>
@@ -822,7 +827,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
         <div class="card-label">রাসূলুল্লাহ (সা.) এর শেখানো মূল দোয়া</div>
         <div class="card-title">বদ নজর ও অনিষ্টতা থেকে বাঁচার দোয়া</div>
         <div class="card-ref">সহীহ বুখারী ও সুনানে ইবনে মাজাহ</div>
-        <div class="arabic" id="basic-dua-1">أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لَامَّةٍ</div>
+        <div class="arabic" lang="ar" dir="rtl" id="basic-dua-1">أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لَامَّةٍ</div>
         <div class="meaning"><strong>উচ্চারণ:</strong> আউযু বিকালিমাতিল্লাহিত তাম্মাতি মিন কুল্লি শায়তানিওঁ ওয়া হাম্মাহ।</div>
         <div class="dua-actions"><button class="dua-action-btn" onclick="copyTextById('basic-dua-1','কপি হয়েছে!')">📄 আরবি কপি</button></div>
       </div>
@@ -830,7 +835,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
         <div class="card-label">জিবরাঈল (আ.) এর রুকইয়াহ</div>
         <div class="card-title">অসুস্থতা ও বদ নজর কাটার প্রধান দোয়া</div>
         <div class="card-ref">সহীহ মুসলিম: ২১৮৬</div>
-        <div class="arabic" id="basic-dua-2">بِسْمِ اللَّهِ أَرْقِيكَ ، مِنْ كُلِّ شَيْءٍ يُؤْذِيكَ ، اللَّهُ يَشْفِيكَ ، بِسْمِ اللَّهِ أَرْقِيكَ</div>
+        <div class="arabic" lang="ar" dir="rtl" id="basic-dua-2">بِسْمِ اللَّهِ أَرْقِيكَ ، مِنْ كُلِّ شَيْءٍ يُؤْذِيكَ ، اللَّهُ يَشْفِيكَ ، بِسْمِ اللَّهِ أَرْقِيكَ</div>
         <div class="meaning"><strong>অর্থ:</strong> আল্লাহর নামে আমি তোমাকে রুকইয়াহ করছি এমন প্রতিটি বিষয় থেকে যা তোমাকে কষ্ট দেয়। আল্লাহ তোমাকে আরোগ্য দান করুন।</div>
         <div class="dua-actions"><button class="dua-action-btn" onclick="copyTextById('basic-dua-2','কপি হয়েছে!')">📄 আরবি কপি</button></div>
       </div>
@@ -903,7 +908,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     <div class="community-header">
       <div>
         <div class="community-title">🌟 কমিউনিটি রিভিউ</div>
-        <div class="community-sub">আপনার অভিজ্ঞতা শেয়ার করুন — অন্যদের সাহায্য করুন</div>
+        <div class="community-sub">আপনার অভিজ্ঞতা লিখুন — এই সংস্করণে এটা শুধু আপনার ডিভাইসে থাকবে, সবার কাছে প্রকাশ হবে না</div>
       </div>
     </div>
 
@@ -940,7 +945,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 
     <!-- Like & Share -->
     <div class="like-bar">
-      <button class="like-btn" id="likeBtn" onclick="toggleLike()">
+      <button class="like-btn" id="likeBtn" onclick="toggleLike()" aria-label="পছন্দ করুন">
         <span id="likeIcon">🤍</span>
         <span class="like-count" id="likeCount">—</span>
         <span>পছন্দ করেছেন</span>
@@ -974,14 +979,14 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
       <div class="footer-brand">MT Studio AI</div>
     </div>
     <div class="footer-tagline">AI • VIDEO • PHOTO • WEB APP • MOBILE APP • AUTOMATION • CONTENT</div>
-    <div class="footer-copy">© 2026 • কুরআন ও সুন্নাহের আলোকে চিকিৎসা<br/>Developed with ❤️ by <span>MT Studio AI</span> — Digital Solutions</div>
+    <div class="footer-copy">© 2026 • কুরআন ও সুন্নাহের আলোকে চিকিৎসা<br/>Developed with ❤️ by <span>MT Studio AI</span> — Digital Solutions<br/>যোগাযোগ: Instagram @mt_studio_ai • YouTube @mt_studio_ai46 • Facebook Page: MT Studio<br/><span style="color:var(--dim-l)">দাবিত্যাগ: এই সাইটের তথ্য সাধারণ ধর্মীয় নির্দেশনা মাত্র — এটা চিকিৎসা, ডায়াগনোসিস বা ফতোয়ার বিকল্প নয়। আরবি পাঠ ও হাদিস রেফারেন্স যোগ্য আলেম দিয়ে যাচাই করে নেওয়ার পরামর্শ দেওয়া হয়।</span></div>
   </div>
 </div>
 
-<button class="scroll-top" id="scrollBtn">↑</button>
+<button class="scroll-top" id="scrollBtn" aria-label="উপরে যান">↑</button>
 
 <!-- FLOATING CHAT BUTTON (MT Studio Branded) -->
-<button id="liveChatBtn" onclick="toggleLiveChat()">
+<button id="liveChatBtn" onclick="toggleLiveChat()" aria-label="AI চ্যাট খুলুন">
   🤖
   <div class="chat-badge">1</div>
 </button>
@@ -990,11 +995,11 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
   <div class="lc-header">
     <div class="lc-avatar">🧕<div class="lc-online"></div></div>
     <div class="lc-hd-info">
-      <div class="lc-name">মহসিন <span class="lc-mt-badge">MT Studio</span></div>
-      <div class="lc-role">রুকইয়াহ বিশেষজ্ঞ • MT Studio AI</div>
-      <div class="lc-status">অনলাইন — Gemini 2.5</div>
+      <div class="lc-name">MT Studio AI সহকারী <span class="lc-mt-badge">AI</span></div>
+      <div class="lc-role">AI সহকারী • রুকইয়াহ বিষয়ক সাধারণ তথ্য</div>
+      <div class="lc-status">AI চ্যাট — চিকিৎসা/ফতোয়ার বিকল্প নয়</div>
     </div>
-    <button class="lc-close" onclick="toggleLiveChat()">✕</button>
+    <button class="lc-close" onclick="toggleLiveChat()" aria-label="চ্যাট বন্ধ করুন">✕</button>
   </div>
   <div class="lc-messages" id="lcMessages"></div>
   <div class="lc-quick" id="lcQuickBtns">
@@ -1003,11 +1008,17 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     <button class="lc-qbtn" onclick="lcSendQuick('প্রতিদিন কোন আমল করবো?')">📖 দৈনিক আমল</button>
     <button class="lc-qbtn" onclick="lcSendQuick('কালো জাদু থেকে মুক্তির উপায়?')">🪄 জাদু মুক্তি</button>
   </div>
+  <div style="padding:8px 10px 0;display:flex;gap:6px;">
+    <input type="password" id="lcKeyInput" placeholder="OpenAI API key (শুধু এই ডিভাইসে থাকবে)" style="flex:1;background:#0a0e1a;border:1px solid rgba(0,212,255,.25);color:#e2e8f0;border-radius:8px;padding:8px;font-size:12px;"/>
+    <button onclick="saveChatKey()" style="background:linear-gradient(135deg,#0099cc,#5b21b6);color:#fff;border:none;border-radius:8px;padding:8px 10px;font-size:12px;cursor:pointer;">সেভ</button>
+    <button onclick="clearChatKey()" title="Key মুছুন" style="background:transparent;color:#94a3b8;border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:8px;font-size:12px;cursor:pointer;">মুছুন</button>
+  </div>
+  <p style="font-family:var(--sans);font-size:10.5px;color:rgba(255,255,255,.55);padding:6px 12px 0;line-height:1.5;">সতর্কতা: API key কখনো পাবলিক কোডে/রিপোতে বসাবেন না। সবার জন্য চালাতে চাইলে সার্ভার-সাইড প্রক্সি ব্যবহার করুন (README দেখুন)। এখানে দেওয়া key শুধু এই ব্রাউজারের localStorage-এ থাকে।</p>
   <div class="lc-input-row">
     <textarea class="lc-input" id="lcInput" placeholder="প্রশ্ন লিখুন..." rows="1" onkeydown="lcKeyDown(event)" oninput="lcAutoResize(this)"></textarea>
-    <button class="lc-send" id="lcSendBtn" onclick="lcSend()">➤</button>
+    <button class="lc-send" id="lcSendBtn" onclick="lcSend()" aria-label="প্রশ্ন পাঠান">➤</button>
   </div>
-  <div class="lc-footer-note">MT Studio AI • Powered by Gemini • সর্বদা কুরআন-সুন্নাহ অনুযায়ী</div>
+  <div class="lc-footer-note">MT Studio AI • ChatGPT (OpenAI) দিয়ে চলে • সাধারণ তথ্য মাত্র</div>
 </div>
 
 <div class="toast-container" id="toastAlert"><span class="toast-icon">✨</span><span id="toastMessage">সম্পন্ন!</span></div>
@@ -1032,66 +1043,19 @@ const LS={
 };
 
 // Artifact persistent storage wrapper
-async function storeGet(key,shared=true){
-  try{const r=await window.storage.get(key,shared);return r?JSON.parse(r.value):null;}catch{return null;}
-}
-async function storeSet(key,val,shared=true){
-  try{await window.storage.set(key,JSON.stringify(val),shared);}catch{}
-}
-async function storeInc(key,shared=true){
-  try{
-    let v=0;
-    try{const r=await window.storage.get(key,shared);if(r)v=parseInt(r.value)||0;}catch{}
-    v++;
-    await window.storage.set(key,String(v),shared);
-    return v;
-  }catch{return 0;}
-}
+// localStorage only — device-local, NOT shared. আগের শেয়ার্ড-স্টোরেজ API সাধারণ ব্রাউজারে নেই।
+  async function storeGet(key,shared=true){ return LS.get(key,null); }
+  async function storeSet(key,val,shared=true){ LS.set(key,val); }
+  async function storeInc(key,shared=true){ const v=(LS.get(key,0)||0)+1; LS.set(key,v); return v; }
 
+  //   REAL-TIME STATS
 // ════════════════════════════════════════
-//   REAL-TIME STATS
-// ════════════════════════════════════════
-const SESSION_ID='ses_'+Math.random().toString(36).slice(2);
-let statsInterval;
-
 async function initStats(){
-  // Count this visit
-  const views=await storeInc('stat_total_views');
-  document.getElementById('totalViews').textContent=fmt2(views);
-  
-  // Register live session
-  await storeSet('live_'+SESSION_ID,Date.now());
-  
-  // Update live count
-  updateLiveCount();
-  statsInterval=setInterval(async()=>{
-    await storeSet('live_'+SESSION_ID,Date.now());
-    updateLiveCount();
-  },15000);
-  
-  window.addEventListener('beforeunload',async()=>{
-    try{await window.storage.delete('live_'+SESSION_ID,true);}catch{}
-    clearInterval(statsInterval);
-  });
-}
-
-async function updateLiveCount(){
-  try{
-    const keys=await window.storage.list('live_',true);
-    if(!keys||!keys.keys){document.getElementById('liveCount').textContent='1';return;}
-    const now=Date.now();
-    let alive=0;
-    for(const k of keys.keys){
-      try{
-        const r=await window.storage.get(k,true);
-        if(r&&(now-parseInt(r.value))<30000)alive++;
-      }catch{}
-    }
-    document.getElementById('liveCount').textContent=Math.max(1,alive);
-  }catch{document.getElementById('liveCount').textContent='1';}
-}
-
-function fmt2(n){
+    const views=await storeInc('stat_total_views');
+    const el=document.getElementById('totalViews');
+    if(el) el.textContent=fmt2(views);
+  }
+  function fmt2(n){
   if(n>=1000000)return(n/1000000).toFixed(1)+'M';
   if(n>=1000)return(n/1000).toFixed(1)+'K';
   return n||'0';
@@ -1260,7 +1224,7 @@ async function submitComment(){
   document.getElementById('charCount').textContent='0';
   commentsPage=0;
   await loadComments(true);
-  showToast('✅ আপনার মন্তব্য পোস্ট হয়েছে! জাযাকাল্লাহু খইর।');
+  showToast('✅ আপনার মন্তব্য এই ডিভাইসে সংরক্ষিত হয়েছে! জাযাকাল্লাহু খইর।');
 }
 
 async function likeComment(el){
@@ -1308,9 +1272,9 @@ const BAQARAH_LIST=[
   {arabic:"سُورَةُ الْبَقَرَةِ",bn:"সূরা বাকারাহ — সম্পূর্ণ",info:"২৮৬ আয়াত • শয়তান বিতাড়িত করে",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌿",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/2.mp3",ytId:"2Xt94RqJI1g"}
 ];
 const DUA_LIST=[
-  {arabic:"دُعَاءُ الشِّفَاء",bn:"শিফার দোয়া",info:"সহিহ বুখারি",qari:"মিশারি রাশিদ আলাফাসি",cover:"🤲",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/285.mp3",ytId:"tKWeL2G9Y4Y"},
+  {arabic:"سُورَةُ الْبَقَرَةِ — آخِر آيَتَيْن",bn:"বাকারাহ — শেষ ২ আয়াত",info:"বাকারাহ ২৮৫–২৮৬ • রাতের সুরক্ষা",qari:"মিশারি রাশিদ আলাফাসি",cover:"🤲",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/285.mp3",ytId:"tKWeL2G9Y4Y"},
   {arabic:"آيَةُ الْكُرْسِيّ",bn:"আয়াতুল কুরসি",info:"বাকারাহ ২৫৫",qari:"মিশারি রাশিদ আলাফাসি",cover:"🛡️",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/255.mp3",ytId:"_m1L_fOLs-g"},
-  {arabic:"سُورَةُ الْفَلَقِ",bn:"সূরা ফালাক ও নাস",info:"সূরা ১১৩–১১৪",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌠",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/113.mp3",ytId:"gDlMzF3KEKE"}
+  {arabic:"سُورَةُ الْفَلَقِ",bn:"সূরা আল-ফালাক",info:"সূরা ১১৩ (নাস রুকইয়াহ তালিকায় আছে)",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌠",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/113.mp3",ytId:"gDlMzF3KEKE"}
 ];
 
 let activePlaylist=RUQYAH_LIST,currentTrackIndex=0;
@@ -1419,9 +1383,9 @@ function runSymptomCheck(){
   if(!total){res.style.display='none';return;}
   res.style.display='block';
   const t=document.getElementById('diagTitleText'),d=document.getElementById('diagDescText'),b=document.getElementById('diagBtnAction');
-  if(eye>=magic&&eye>=jinn){t.textContent='নজর বা হাসাদ (Evil Eye) লক্ষণ সনাক্ত';d.textContent='নজরের প্রভাব সনাক্ত হয়েছে। সূরা ফাতিহা ও ফালাক সবচেয়ে কার্যকর।';b.onclick=()=>{openTab('tilawat');setTimeout(()=>playSurah(0),200);};}
-  else if(magic>=jinn){t.textContent='সিহর বা কালো জাদু (Sihr) লক্ষণ সনাক্ত';d.textContent='সিহরের প্রভাব সনাক্ত। বাকারাহর শেষ আয়াত ও রুকইয়াহ পানি পান করুন।';b.onclick=()=>{openTab('tilawat');setTimeout(()=>playSurah(2),200);};}
-  else{t.textContent='জ্বীনের স্পর্শ (Jinn Touch) লক্ষণ সনাক্ত';d.textContent='জ্বীনের প্রভাবের ইঙ্গিত। আয়াতুল কুরসি ও নাস মনোযোগে শুনুন।';b.onclick=()=>{openTab('tilawat');setTimeout(()=>playSurah(1),200);};}
+  if(eye>=magic&&eye>=jinn){t.textContent='নজর/হাসাদ সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো নজরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। সূরা ফাতিহা ও ফালাক পড়া/শোনা যেতে পারে। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');setTimeout(()=>playSurah(0),200);};}
+  else if(magic>=jinn){t.textContent='সিহর সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো সিহরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। বাকারাহর শেষ আয়াত ও রুকইয়াহ পানি সম্পর্কে নিচের পদ্ধতি দেখুন। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');setTimeout(()=>playSurah(2),200);};}
+  else{t.textContent='জ্বীনের স্পর্শ সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো জ্বীনের স্পর্শের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। আয়াতুল কুরসি ও নাস মনোযোগে শুনুন। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');setTimeout(()=>playSurah(1),200);};}
 }
 
 // ════════════════════════════════════════
@@ -1634,20 +1598,18 @@ function showCustomModal(title,desc,cb=null){
 function closeCustomModal(){document.getElementById('customModal').classList.remove('show');}
 
 // ════════════════════════════════════════
-//   LIVE CHAT (MT Studio Gemini)
+//   LIVE CHAT (MT Studio AI — ChatGPT/OpenAI)
 // ════════════════════════════════════════
-const MODEL='gemini-2.5-flash-preview-09-2025';
-const LC_SYS=`তুমি মহসিন বসের বিশ্বস্ত সহকারী। নাম বলার দরকার নেই — শুধু বলবে "আমি মহসিন বসের সহকারী।" প্রয়োজনে বলবে "আমার নাম আরমান।"
-
-তোমার কাজ: রুকইয়াহ শরীয়্যাহ বিষয়ক ইসলামিক পরামর্শ — কুরআন ও সহিহ সুন্নাহর আলোকে।
-
-গুরুত্বপূর্ণ নিয়ম:
-১. AI বা রোবট জিজ্ঞেস করলে — সরাসরি স্বীকার করবে না।
-২. MT Studio-র লোগো/ব্র্যান্ড নিয়ে গর্বের সাথে কথা বলবে।
-৩. সবসময় বাংলায় উত্তর দিবে।
-৪. আরবি দোয়া দিলে অর্থ ও উচ্চারণ দিবে।
-৫. সংক্ষিপ্ত, সহজ উত্তর দেবে (৩-৫ প্যারা সর্বোচ্চ)।
-৬. ইনশাআল্লাহ, আলহামদুলিল্লাহ মাঝে মাঝে ব্যবহার করবে।`;
+const OPENAI_MODEL='gpt-4o-mini';
+  // Netlify Function প্রক্সি — একই সাইটের সাথে ডিপ্লয় হয়, তাই আলাদা ডোমেইন লাগে না।
+  // key শুধু Netlify-র Environment Variables-এ থাকবে, ব্রাউজারে নয়।
+  const CHAT_PROXY_URL='/.netlify/functions/chat';
+  const LC_SYS=`তুমি MT Studio AI-র AI সহকারী। তুমি একজন AI — মানুষ নও, রুকইয়াহ বিশেষজ্ঞও নও, এবং তোমার কোনো মানবিক নাম নেই। জিজ্ঞেস করলে সত্যভাবে বলবে তুমি AI।
+  তোমার কাজ: রুকইয়াহ শরীয়্যাহ বিষয়ক সাধারণ ইসলামিক তথ্য দেওয়া — কুরআন ও সহিহ সুন্নাহর আলোকে, বাংলায়, সংক্ষেপে (সর্বোচ্চ ৩-৫ প্যারা)।
+  নিয়ম: চিকিৎসা নির্ণয় করবে না, ফতোয়া দেবে না, নিশ্চিতভাবে কারো উপর নজর/জাদু/জ্বীন আছে বলে দাবি করবে না। শারীরিক বা মানসিক সমস্যায় চিকিৎসক ও যোগ্য আলেমের পরামর্শ নিতে বলবে। আরবি দোয়া দিলে অর্থ ও উচ্চারণ দেবে।`;
+  function getChatKey(){ return LS.get('ruqyah_openai_key','')||''; }
+  function saveChatKey(){ const v=document.getElementById('lcKeyInput').value.trim(); if(!v){showToast('প্রথমে key লিখুন।');return;} LS.set('ruqyah_openai_key',v); document.getElementById('lcKeyInput').value=''; showToast('Key শুধু এই ডিভাইসে সংরক্ষিত হয়েছে।'); }
+  function clearChatKey(){ LS.set('ruqyah_openai_key',''); showToast('Key মুছে দেওয়া হয়েছে।'); }
 
 let lcHistory=[],lcBusy=false,lcStarted=false;
 function toggleLiveChat(){
@@ -1656,14 +1618,14 @@ function toggleLiveChat(){
   document.querySelector('#liveChatBtn .chat-badge').style.display='none';
   if(!lcStarted&&p.classList.contains('open')){
     lcStarted=true;
-    setTimeout(()=>lcAddMsg('bot','আসসালামুআলাইকুম! 🌙\n\nআমি মহসিন বসের সহকারী। MT Studio AI-র এই রুকইয়াহ শিফা অ্যাপে আপনাকে স্বাগতম!\n\nবদ নজর, সিহর, জ্বীন আছর বা আধ্যাত্মিক নিরাময় সম্পর্কে যেকোনো প্রশ্ন করুন। ইনশাআল্লাহ সহীহ উত্তর দেওয়ার চেষ্টা করবো। 🤲'),600);
+    setTimeout(()=>lcAddMsg('bot','আসসালামুআলাইকুম! 🌙\n\nআমি MT Studio AI-র AI সহকারী। রুকইয়াহ বিষয়ক সাধারণ তথ্য দিতে পারবো — এটা চিকিৎসা বা ফতোয়ার বিকল্প নয়।\n\nবদ নজর, সিহর, জ্বীন আছর বা আধ্যাত্মিক নিরাময় সম্পর্কে যেকোনো প্রশ্ন করুন। ইনশাআল্লাহ সহীহ উত্তর দেওয়ার চেষ্টা করবো। 🤲'),600);
   }
 }
 function lcAddMsg(role,text){
   const m=document.getElementById('lcMessages');
   const d=document.createElement('div');d.className=`lc-msg ${role}`;
   const av=document.createElement('div');av.className='lc-msg-av';av.textContent=role==='bot'?'🧕':'👤';
-  const b=document.createElement('div');b.className='lc-bubble';b.innerHTML=text.replace(/\n/g,'<br>');
+  const b=document.createElement('div');b.className='lc-bubble';b.innerHTML=escapeHtml(text).replace(/\n/g,'<br>');
   d.appendChild(av);d.appendChild(b);m.appendChild(d);m.scrollTop=m.scrollHeight;
 }
 function lcShowTyping(){const m=document.getElementById('lcMessages');const d=document.createElement('div');d.className='lc-msg bot';d.id='lcTyping';d.innerHTML='<div class="lc-msg-av">🧕</div><div class="lc-bubble"><div class="lc-typing"><span></span><span></span><span></span></div></div>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
@@ -1679,12 +1641,23 @@ async function lcSend(text){
   document.getElementById('lcSendBtn').disabled=true;
   lcShowTyping();
   try{
-    const url=`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=`;
-    const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:msg}]}],systemInstruction:{parts:[{text:LC_SYS}]}})});
-    const data=await res.json();
-    const reply=data.candidates?.[0]?.content?.parts?.[0]?.text||'দুঃখিত, সংযোগে সমস্যা।';
-    lcHideTyping();lcAddMsg('bot',reply);
-  }catch{lcHideTyping();lcAddMsg('bot','দুঃখিত, সংযোগে সামান্য ত্রুটি। "দোয়াসমূহ" ট্যাবে সুরক্ষার দোয়া দেওয়া আছে। ইনশাআল্লাহ মহসিন বস পরে বিস্তারিত বলবেন।');}
+      const sysMsg={role:'system',content:LC_SYS};
+      const userMsg={role:'user',content:msg};
+      let reply='';
+      if(CHAT_PROXY_URL){
+        const res=await fetch(CHAT_PROXY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[sysMsg,userMsg]})});
+        const data=await res.json();
+        reply=data.reply||data.choices?.[0]?.message?.content||'দুঃখিত, সংযোগে সমস্যা।';
+      } else {
+        const key=getChatKey();
+        if(!key){ lcHideTyping(); lcAddMsg('bot','AI চ্যাট চালাতে উপরে OpenAI API key দিন (শুধু এই ডিভাইসে থাকবে), অথবা সার্ভার-সাইড প্রক্সি সেট করুন। key কখনো পাবলিক কোডে বসাবেন না।'); document.getElementById('lcSendBtn').disabled=false; lcBusy=false; return; }
+        const res=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:OPENAI_MODEL,messages:[sysMsg,userMsg],temperature:0.3,max_tokens:600})});
+        const data=await res.json();
+        if(!res.ok){ throw new Error(data.error?.message||('HTTP '+res.status)); }
+        reply=data.choices?.[0]?.message?.content||'দুঃখিত, সংযোগে সমস্যা।';
+      }
+      lcHideTyping();lcAddMsg('bot',reply);
+    }catch(e){lcHideTyping();lcAddMsg('bot','দুঃখিত, চ্যাটে সমস্যা হয়েছে। key ভুল/মেয়াদোত্তীর্ণ হলে বা কোটা শেষ হলে এটা হতে পারে। দোয়াসমূহ ট্যাবে সুরক্ষার দোয়া দেওয়া আছে।');}
   lcBusy=false;document.getElementById('lcSendBtn').disabled=false;
 }
 function lcSendQuick(q){lcSend(q);}
@@ -1694,7 +1667,7 @@ function lcAutoResize(el){el.style.height='auto';el.style.height=Math.min(el.scr
 // ════════════════════════════════════════
 //   APP UPDATE
 // ════════════════════════════════════════
-const APP_VER='5.0.0';
+const APP_VER='5.1.0';
 function checkAppVersion(){
   const v=LS.get('ruqyah_app_ver','');
   if(v!==APP_VER){LS.set('ruqyah_app_ver',APP_VER);setTimeout(()=>document.getElementById('updateToast').classList.add('show'),2000);}
@@ -1758,7 +1731,6 @@ async function initApp(){
     await initComments();
   }catch(e){
     // Fallback if storage unavailable
-    document.getElementById('liveCount').textContent='1';
     document.getElementById('totalViews').textContent='—';
     document.getElementById('totalLikesBar').textContent='—';
     document.getElementById('avgRatingBar').textContent='—';
