@@ -1008,12 +1008,13 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     <button class="lc-qbtn" onclick="lcSendQuick('প্রতিদিন কোন আমল করবো?')">📖 দৈনিক আমল</button>
     <button class="lc-qbtn" onclick="lcSendQuick('কালো জাদু থেকে মুক্তির উপায়?')">🪄 জাদু মুক্তি</button>
   </div>
-  <div style="padding:8px 10px 0;display:flex;gap:6px;">
+  <div id="lcKeyRow" style="padding:8px 10px 0;display:flex;gap:6px;">
     <input type="password" id="lcKeyInput" placeholder="OpenAI API key (শুধু এই ডিভাইসে থাকবে)" style="flex:1;background:#0a0e1a;border:1px solid rgba(0,212,255,.25);color:#e2e8f0;border-radius:8px;padding:8px;font-size:12px;"/>
     <button onclick="saveChatKey()" style="background:linear-gradient(135deg,#0099cc,#5b21b6);color:#fff;border:none;border-radius:8px;padding:8px 10px;font-size:12px;cursor:pointer;">সেভ</button>
     <button onclick="clearChatKey()" title="Key মুছুন" style="background:transparent;color:#94a3b8;border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:8px;font-size:12px;cursor:pointer;">মুছুন</button>
   </div>
-  <p style="font-family:var(--sans);font-size:10.5px;color:rgba(255,255,255,.55);padding:6px 12px 0;line-height:1.5;">সতর্কতা: API key কখনো পাবলিক কোডে/রিপোতে বসাবেন না। সবার জন্য চালাতে চাইলে সার্ভার-সাইড প্রক্সি ব্যবহার করুন (README দেখুন)। এখানে দেওয়া key শুধু এই ব্রাউজারের localStorage-এ থাকে।</p>
+  <p id="lcKeyNote" style="font-family:var(--sans);font-size:10.5px;color:rgba(255,255,255,.55);padding:6px 12px 0;line-height:1.5;">সতর্কতা: API key কখনো পাবলিক কোডে/রিপোতে বসাবেন না। সবার জন্য চালাতে চাইলে সার্ভার-সাইড প্রক্সি ব্যবহার করুন (README দেখুন)। এখানে দেওয়া key শুধু এই ব্রাউজারের localStorage-এ থাকে।</p>
+  <p id="lcProxyNote" style="display:none;font-family:var(--sans);font-size:10.5px;color:rgba(255,255,255,.55);padding:6px 12px 0;line-height:1.5;">সার্ভার প্রক্সি দিয়ে চলছে — চ্যাটের জন্য key লাগবে না।</p>
   <div class="lc-input-row">
     <textarea class="lc-input" id="lcInput" placeholder="প্রশ্ন লিখুন..." rows="1" onkeydown="lcKeyDown(event)" oninput="lcAutoResize(this)"></textarea>
     <button class="lc-send" id="lcSendBtn" onclick="lcSend()" aria-label="প্রশ্ন পাঠান">➤</button>
@@ -1667,7 +1668,7 @@ function lcAutoResize(el){el.style.height='auto';el.style.height=Math.min(el.scr
 // ════════════════════════════════════════
 //   APP UPDATE
 // ════════════════════════════════════════
-const APP_VER='5.1.0';
+const APP_VER='5.1.1';
 function checkAppVersion(){
   const v=LS.get('ruqyah_app_ver','');
   if(v!==APP_VER){LS.set('ruqyah_app_ver',APP_VER);setTimeout(()=>document.getElementById('updateToast').classList.add('show'),2000);}
@@ -1698,6 +1699,8 @@ document.getElementById('btnDismiss').addEventListener('click',()=>{document.get
 //   INIT
 // ════════════════════════════════════════
 async function initApp(){
+  // প্রক্সি থাকলে key-র ঘর লুকান — ভিজিটরের key লাগবে না
+  if(typeof CHAT_PROXY_URL!=='undefined'&&CHAT_PROXY_URL){ document.getElementById('lcKeyRow')?.remove(); document.getElementById('lcKeyNote')?.remove(); const pn=document.getElementById('lcProxyNote'); if(pn) pn.style.display='block'; }
   // Build playlists
   buildList('surahListRuqyah',RUQYAH_LIST);
   buildList('surahListBaqarah',BAQARAH_LIST);
