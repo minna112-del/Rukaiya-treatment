@@ -668,9 +668,9 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     </div>
     <div class="sub-content" id="sc-duaplayer">
       <div class="card" style="margin-bottom:16px">
-        <div class="card-label">বাংলায় মোনাজাত</div>
-        <div class="card-title">বাংলায় মোনাজাত পড়ুন</div>
-        <div class="card-ref">এগুলো কুরআনের আয়াত নয় — বাংলায় নিজের ভাষায় মোনাজাতের নমুনা। নিজের কথায়ও দোয়া করতে পারেন।</div>
+        <div class="card-label">অডিও মোনাজাত</div>
+        <div class="card-title">শুনে শুনে মোনাজাত করুন</div>
+        <div class="card-ref">আরবি মোনাজাত শুনুন — মিশারি রাশিদ আলাফাসি।</div>
       </div>
       <div class="surah-list" id="surahListDua"></div>
     </div>
@@ -1269,11 +1269,8 @@ const RUQYAH_LIST=[
 const BAQARAH_LIST=[
   {arabic:"سُورَةُ الْبَقَرَةِ",bn:"সূরা বাকারাহ — সম্পূর্ণ",info:"২৮৬ আয়াত • শয়তান বিতাড়িত করে",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌿",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/2.mp3",ytId:"2Xt94RqJI1g"}
 ];
-const MONAJAT_LIST=[
-  {title:"ক্ষমা ও তওবার মোনাজাত",text:"হে আল্লাহ, আমি আমার জানা-অজানা সব গুনাহের জন্য আপনার কাছে ক্ষমা চাই। আমার অন্তরকে পরিষ্কার করে দিন, আমাকে সঠিক পথে ফিরিয়ে আনুন এবং আপনার রহমত থেকে আমাকে বঞ্চিত করবেন না। আমীন।"},
-  {title:"শিফা ও সুরক্ষার মোনাজাত",text:"হে শিফা দানকারী আল্লাহ, আমার শরীর ও মনকে সুস্থ করে দিন। বদ নজর, হিংসা ও সব ধরনের অনিষ্ট থেকে আমাকে ও আমার পরিবারকে হেফাজত করুন। আপনার কাছেই সব শিফা, আপনিই একমাত্র ভরসা। আমীন।"},
-  {title:"পরিবার ও রিজিকের মোনাজাত",text:"হে আল্লাহ, আমার পরিবারে শান্তি ও ভালোবাসা দিন, আমাদের রিজিকে বরকত দিন এবং হালাল পথে চলার তাওফিক দিন। আমাদের সন্তানদেরকে ভালো মানুষ হিসেবে গড়ে তুলুন এবং সব বিপদ থেকে রক্ষা করুন। আমীন।"},
-  {title:"সকাল-সন্ধ্যার মোনাজাত",text:"হে আল্লাহ, আজকের দিনটি আপনার নামে শুরু করছি। সারাদিনের সব কাজে আমাকে সাহায্য করুন, ভুল থেকে বাঁচান, ধৈর্য দিন এবং রাতে শান্তিতে ঘুমানোর তাওফিক দিন। আপনার হেফাজতেই আমি সকাল করি, আপনার হেফাজতেই সন্ধ্যা করি। আমীন।"}
+const DUA_LIST=[
+  {arabic:"مُنَاجَاةُ اللهِ يَا رَحْمَن",bn:"মোনাজাত — আল্লাহ ইয়া রহমান",info:"আরবি মোনাজাত • মিশারি রাশিদ আলাফাসি",qari:"মিশারি রাশিদ আলাফাসি",cover:"🤲",audio:"https://archive.org/download/ibtilalat/monajat-ya-rahman.MP3",ytId:""}
 ];
 
 let activePlaylist=RUQYAH_LIST,currentTrackIndex=0;
@@ -1336,17 +1333,6 @@ function buildList(id,list){
     </div>`).join('');
 }
 
-function renderMonajat(){
-  const el=document.getElementById('surahListDua');
-  if(!el) return;
-  el.innerHTML=MONAJAT_LIST.map((m,i)=>`
-    <div class="card" style="margin-bottom:14px;text-align:left;">
-      <div class="card-label">মোনাজাত ${i+1}</div>
-      <div class="card-title" style="font-size:15px;">${m.title}</div>
-      <p style="font-size:13.5px;line-height:1.9;color:var(--text);margin-top:8px;">${m.text}</p>
-    </div>`).join('');
-}
-
 function switchTilawatMode(mode,btn){
   document.querySelectorAll('#tilawat .sub-content').forEach(el=>el.classList.remove('show'));
   document.querySelectorAll('#tilawat .sub-mode-btn').forEach(b=>b.classList.remove('active'));
@@ -1354,7 +1340,7 @@ function switchTilawatMode(mode,btn){
   btn.classList.add('active');
   if(mode==='ruqyah')activePlaylist=RUQYAH_LIST;
   else if(mode==='baqarah')activePlaylist=BAQARAH_LIST;
-  else if(mode==='duaplayer'){ /* মোনাজাত শুধু পড়ার জন্য, অডিও প্লেলিস্ট বদলাবে না */ }
+  else activePlaylist=DUA_LIST;
 }
 
 function toggleYT(){
@@ -1713,7 +1699,7 @@ async function initApp(){
   // Build playlists
   buildList('surahListRuqyah',RUQYAH_LIST);
   buildList('surahListBaqarah',BAQARAH_LIST);
-  renderMonajat();
+  buildList('surahListDua',DUA_LIST);
   renderUqood();
   updatePaperVerses();
 
