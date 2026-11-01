@@ -534,9 +534,10 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 <div id="printable-ruqyah-paper"></div>
 
 <div id="updateToast">
-  <div class="update-title">✨ নতুন আপডেট পাওয়া গেছে! (ভার্সন ৫.০)</div>
+  <div class="update-title">✨ নতুন আপডেট পাওয়া গেছে! (ভার্সন ৫.১.১)</div>
   <div class="update-desc">ChatGPT চ্যাট, স্থানীয়ভাবে সংরক্ষিত কমিউনিটি ফিচার, ডিসক্লেইমার ও নিরাপত্তা সংশোধন এসেছে।</div>
   <button class="update-btn" onclick="applyAppUpdate()">এখনই আপডেট করুন</button>
+  <button class="update-btn" style="background:transparent;border:1px solid rgba(255,255,255,.25);" onclick="document.getElementById('updateToast').classList.remove('show')">পরে</button>
 </div>
 
 <!-- ── MT STUDIO BRAND BAR ── -->
@@ -1260,8 +1261,9 @@ function shareApp(){
 // ════════════════════════════════════════
 const RUQYAH_LIST=[
   {arabic:"الْفَاتِحَة",bn:"সূরা আল-ফাতিহা",info:"সূরা ১ • শিফার মূল সূরা",qari:"মিশারি রাশিদ আলাফাসি",cover:"☀️",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/1.mp3",ytId:"D7lSaRoJAoo"},
-  {arabic:"آيَةُ الْكُرْسِيّ",bn:"আয়াতুল কুরসি",info:"বাকারাহ ২৫৫ • শয়তানি শক্তি ধ্বংসকারী",qari:"মিশারি রাশিদ আলাফাসি",cover:"🛡️",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/255.mp3",ytId:"_m1L_fOLs-g"},
-  {arabic:"سُورَةُ الْبَقَرَةِ — آخِر آيَتَيْن",bn:"বাকারাহ — শেষ ২ আয়াত",info:"বাকারাহ ২৮৫–২৮৬ • রাতের সুরক্ষা",qari:"মিশারি রাশিদ আলাফাসি",cover:"📖",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/285.mp3",ytId:"tKWeL2G9Y4Y"},
+  {arabic:"آيَةُ الْكُرْسِيّ",bn:"আয়াতুল কুরসি",info:"বাকারাহ ২৫৫ • শয়তানি শক্তি ধ্বংসকারী",qari:"মিশারি রাশিদ আলাফাসি",cover:"🛡️",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/262.mp3",ytId:"_m1L_fOLs-g"},
+  {arabic:"آمَنَ الرَّسُولُ",bn:"বাকারাহ — ২৮৫",info:"বাকারাহ ২৮৫ • শেষ ২ আয়াতের ১ম",qari:"মিশারি রাশিদ আলাফাসি",cover:"📖",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/292.mp3",ytId:"tKWeL2G9Y4Y"},
+  {arabic:"لَا يُكَلِّفُ اللَّهُ نَفْسًا",bn:"বাকারাহ — ২৮৬",info:"বাকারাহ ২৮৬ • শেষ ২ আয়াতের ২য়",qari:"মিশারি রাশিদ আলাফাসি",cover:"📖",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/293.mp3",ytId:""},
   {arabic:"سُورَةُ الإِخْلَاص",bn:"সূরা আল-ইখলাস",info:"সূরা ১১২ • তাওহীদের শক্তি",qari:"মিশারি রাশিদ আলাফাসি",cover:"✨",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/112.mp3",ytId:"xuKm3xXJwvU"},
   {arabic:"سُورَةُ الْفَلَقِ",bn:"সূরা আল-ফালাক",info:"সূরা ১১৩ • নজর ও জাদুর প্রভাব ভাঙে",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌙",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/113.mp3",ytId:"gDlMzF3KEKE"},
   {arabic:"سُورَةُ النَّاسِ",bn:"সূরা আন-নাস",info:"সূরা ১১৪ • ওয়াসওয়াসা ধ্বংসকারী",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌟",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/114.mp3",ytId:"gEPj2Ctvhsk"}
@@ -1344,9 +1346,11 @@ function switchTilawatMode(mode,btn){
 }
 
 function toggleYT(){
+  const cur=activePlaylist[currentTrackIndex];
+  if(!cur||!cur.ytId){ setStatus('এই আইটেমের YouTube ব্যাকআপ নেই — মূল প্লেয়ারেই শুনুন','paused'); return; }
   const open=ytWrap.classList.toggle('open');
   document.getElementById('ytToggleBtn').textContent=open?'✕ YouTube বন্ধ':'▶ YouTube ব্যাকআপ';
-  if(open)ytFrame.src=`https://www.youtube.com/embed/${activePlaylist[currentTrackIndex].ytId}?rel=0&modestbranding=1`;
+  if(open)ytFrame.src=`https://www.youtube.com/embed/${cur.ytId}?rel=0&modestbranding=1`;
   else ytFrame.src='';
 }
 
