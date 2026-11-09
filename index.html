@@ -76,12 +76,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .btn-install{background:var(--grad-btn);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;}
 .btn-dismiss{background:transparent;color:var(--dim);border:1px solid var(--border);border-radius:8px;padding:8px;font-size:14px;cursor:pointer;line-height:1;}
 
-/* ── UPDATE TOAST ── */
-#updateToast{position:fixed;top:calc(12px + env(safe-area-inset-top));bottom:auto;left:50%;transform:translateX(-50%) translateY(-240px);max-height:calc(100vh - 40px);overflow:auto;background:linear-gradient(135deg,#0e1525,#080d1a);border:2.5px solid var(--cyan);color:#fff;padding:16px 22px;border-radius:var(--r);z-index:10005;box-shadow:0 15px 45px rgba(0,0,0,.8),var(--glow-c);width:calc(100% - 32px);max-width:440px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;transition:transform .5s cubic-bezier(.175,.885,.32,1.275);}
-#updateToast.show{transform:translateX(-50%) translateY(0);}
-.update-title{font-size:14.5px;font-weight:700;color:var(--cyan-l);}
-.update-desc{font-family:var(--sans);font-size:11.5px;color:var(--dim-l);line-height:1.6;}
-.update-btn{background:var(--grad-btn);color:#fff;border:1.5px solid var(--cyan-l);border-radius:8px;padding:6px 16px;font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;}
 
 /* ── MT STUDIO BRAND BAR ── */
 .mt-brand-bar{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:12px 20px 10px;border-bottom:1px solid var(--border);background:rgba(8,11,20,.88);backdrop-filter:blur(14px);}
@@ -533,13 +527,6 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 
 <div id="printable-ruqyah-paper"></div>
 
-<div id="updateToast">
-  <button aria-label="বন্ধ করুন" style="position:absolute;top:8px;right:10px;background:transparent;border:none;color:#94a3b8;font-size:16px;cursor:pointer;padding:4px 8px;" onclick="document.getElementById('updateToast').classList.remove('show')">✕</button>
-  <div class="update-title">✨ নতুন আপডেট পাওয়া গেছে! (ভার্সন ৫.১.১)</div>
-  <div class="update-desc">ChatGPT চ্যাট, স্থানীয়ভাবে সংরক্ষিত কমিউনিটি ফিচার, ডিসক্লেইমার ও নিরাপত্তা সংশোধন এসেছে।</div>
-  <button class="update-btn" onclick="applyAppUpdate()">এখনই আপডেট করুন</button>
-  <button class="update-btn" style="background:transparent;border:1px solid rgba(255,255,255,.25);" onclick="document.getElementById('updateToast').classList.remove('show')">পরে</button>
-</div>
 
 <!-- ── MT STUDIO BRAND BAR ── -->
 <div class="mt-brand-bar">
@@ -597,7 +584,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     <div class="sec-header"><span class="sec-icon">🎙️</span><span class="sec-title">তিলাওয়াত প্লেয়ার</span></div>
     <div class="sub-mode-selector">
       <button class="sub-mode-btn active" onclick="switchTilawatMode('ruqyah',this)">🛡️ রুকইয়াহ</button>
-      <button class="sub-mode-btn" onclick="switchTilawatMode('baqarah',this)">📖 সূরা বাকারা</button>
+      <button class="sub-mode-btn" onclick="switchTilawatMode('baqarah',this)">📖 সেরা সূরা সমূহ</button>
       <button class="sub-mode-btn" onclick="switchTilawatMode('duaplayer',this)">🤲 মোনাজাত</button>
     </div>
     <div class="audio-player">
@@ -662,9 +649,9 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     </div>
     <div class="sub-content" id="sc-baqarah">
       <div class="card" style="margin-bottom:16px">
-        <div class="card-label">সূরা আল-বাকারাহ</div>
-        <div class="card-title">সূরা বাকারা সম্পূর্ণ তিলাওয়াত</div>
-        <div class="card-ref">২৮৬ আয়াত • যে ঘরে সূরা বাকারাহ পড়া হয়, সেখান থেকে শয়তান পালিয়ে যায়।</div>
+        <div class="card-label">সেরা সূরা সমূহ</div>
+        <div class="card-title">সেরা সূরা সমূহ</div>
+        <div class="card-ref">৬টি সূরা • তাকাসুর, ইয়াসিন, মুলক, আদ-দুহা, ইনশিরাহ, জিন</div>
       </div>
       <div class="surah-list" id="surahListBaqarah"></div>
     </div>
@@ -1270,7 +1257,12 @@ const RUQYAH_LIST=[
   {arabic:"سُورَةُ النَّاسِ",bn:"সূরা আন-নাস",info:"সূরা ১১৪ • ওয়াসওয়াসা ধ্বংসকারী",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌟",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/114.mp3",ytId:"gEPj2Ctvhsk"}
 ];
 const BAQARAH_LIST=[
-  {arabic:"سُورَةُ الْبَقَرَةِ",bn:"সূরা বাকারাহ — সম্পূর্ণ",info:"২৮৬ আয়াত • শয়তান বিতাড়িত করে",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌿",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/2.mp3",ytId:"2Xt94RqJI1g"}
+  {arabic:"سُورَةُ التَّكَاثُرِ",bn:"সূরা আত-তাকাসুর",info:"সূরা ১০২ • ৮ আয়াত",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌿",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/102.mp3",ytId:""},
+  {arabic:"سُورَةُ يسٓ",bn:"সূরা ইয়াসিন",info:"সূরা ৩৬ • কুরআনের হৃদয়",qari:"মিশারি রাশিদ আলাফাসি",cover:"💛",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/36.mp3",ytId:""},
+  {arabic:"سُورَةُ الْمُلْكِ",bn:"সূরা আল-মুলক",info:"সূরা ৬৭ • ৩০ আয়াত",qari:"মিশারি রাশিদ আলাফাসি",cover:"👑",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/67.mp3",ytId:""},
+  {arabic:"سُورَةُ الضُّحَىٰ",bn:"সূরা আদ-দুহা",info:"সূরা ৯৩ • ১১ আয়াত",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌅",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/93.mp3",ytId:""},
+  {arabic:"سُورَةُ الشَّرْحِ",bn:"সূরা আল-ইনশিরাহ",info:"সূরা ৯৪ • ৮ আয়াত",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌸",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/94.mp3",ytId:""},
+  {arabic:"سُورَةُ الْجِنِّ",bn:"সূরা আল-জিন",info:"সূরা ৭২ • ২৮ আয়াত",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌌",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/72.mp3",ytId:""}
 ];
 const DUA_LIST=[
   {arabic:"مُنَاجَاةُ اللهِ يَا رَحْمَن",bn:"মোনাজাত — আল্লাহ ইয়া রহমান",info:"আরবি মোনাজাত • মিশারি রাশিদ আলাফাসি",qari:"মিশারি রাশিদ আলাফাসি",cover:"🤲",audio:"https://archive.org/download/ibtilalat/monajat-ya-rahman.MP3",ytId:""}
@@ -1295,15 +1287,15 @@ function setStatus(t,cls){apStatus.textContent=t;apStatus.className='ap-status '
 function setVolume(v){audioEl.volume=v/100;}
 
 audioEl.addEventListener('loadstart',()=>setStatus('লোড...','loading'));
-audioEl.addEventListener('canplay',()=>{setStatus(audioEl.paused?'প্রস্তুত':'চলছে',audioEl.paused?'paused':'playing');apDuration.textContent=fmtTime(audioEl.duration);});
+audioEl.addEventListener('canplay',()=>{document.getElementById('offlineBanner').classList.remove('show');setStatus(audioEl.paused?'প্রস্তুত':'চলছে',audioEl.paused?'paused':'playing');apDuration.textContent=fmtTime(audioEl.duration);});
 audioEl.addEventListener('timeupdate',()=>{
   if(!apRange.matches(':active')){const p=audioEl.duration?(audioEl.currentTime/audioEl.duration)*100:0;apRange.value=p;apRange.style.background=`linear-gradient(to right,var(--cyan) ${p}%,rgba(255,255,255,.1) ${p}%)`;}
   apCurrent.textContent=fmtTime(audioEl.currentTime);
 });
 audioEl.addEventListener('play',()=>{setStatus('চলছে','playing');apPlay.textContent='⏸';waveWrap.classList.add('playing');});
 audioEl.addEventListener('pause',()=>{setStatus('থামানো','paused');apPlay.textContent='▶';waveWrap.classList.remove('playing');});
-audioEl.addEventListener('ended',()=>{apPlay.textContent='▶';waveWrap.classList.remove('playing');setTimeout(()=>playSurah((currentTrackIndex+1)%activePlaylist.length),1000);});
-audioEl.addEventListener('error',()=>setStatus('ত্রুটি','paused'));
+audioEl.addEventListener('ended',()=>{if(wtStarted){wtOnAudioEnded();return;}apPlay.textContent='▶';waveWrap.classList.remove('playing');setTimeout(()=>playSurah((currentTrackIndex+1)%activePlaylist.length),1000);});
+audioEl.addEventListener('error',()=>{if(wtStarted){showToast('⚠️ অডিও চালু হয়নি — নেট চেক করে আবার চাপুন');wtReset();return;}setStatus('ত্রুটি','paused');});
 apRange.addEventListener('input',()=>{if(audioEl.duration)audioEl.currentTime=(apRange.value/100)*audioEl.duration;});
 apPlay.addEventListener('click',()=>{audioEl.paused?audioEl.play().catch(()=>setStatus('ট্যাপ','paused')):audioEl.pause();});
 document.getElementById('apPrev').addEventListener('click',()=>playSurah((currentTrackIndex-1+activePlaylist.length)%activePlaylist.length));
@@ -1311,6 +1303,9 @@ document.getElementById('apNext').addEventListener('click',()=>playSurah((curren
 document.getElementById('apRew').addEventListener('click',()=>{audioEl.currentTime=Math.max(0,audioEl.currentTime-10);});
 document.getElementById('apFwd').addEventListener('click',()=>{audioEl.currentTime=Math.min(audioEl.duration||0,audioEl.currentTime+10);});
 
+// পরের ট্র্যাক আগে থেকে টেনে রাখে, যাতে চাপলেই চলে (ল্যাগ কমে)
+const __prefetchAudioEl=new Audio();
+function prefetchAudio(url){if(!url)return;try{__prefetchAudioEl.preload='auto';__prefetchAudioEl.src=url;__prefetchAudioEl.load();}catch(e){}}
 function playSurah(idx){
   currentTrackIndex=idx;
   const s=activePlaylist[idx];
@@ -1323,8 +1318,9 @@ function playSurah(idx){
     el.classList.toggle('active',i===idx);
     el.querySelector('.si-play').textContent=i===idx?'⏸':'▶';
   });
-  if(ytWrap.classList.contains('open'))ytFrame.src=`https://www.youtube.com/embed/${s.ytId}?autoplay=1&rel=0`;
+  if(ytWrap.classList.contains('open')){if(s.ytId)ytFrame.src=`https://www.youtube.com/embed/${s.ytId}?autoplay=1&rel=0`;else ytFrame.src='';}
   audioEl.play().then(()=>apPlay.textContent='⏸').catch(()=>setStatus('ট্যাপ করুন','paused'));
+  prefetchAudio(activePlaylist[(idx+1)%activePlaylist.length].audio);
 }
 
 function buildList(id,list){
@@ -1349,10 +1345,11 @@ function switchTilawatMode(mode,btn){
 function toggleYT(){
   const cur=activePlaylist[currentTrackIndex];
   if(!cur||!cur.ytId){ setStatus('এই আইটেমের YouTube ব্যাকআপ নেই — মূল প্লেয়ারেই শুনুন','paused'); return; }
-  const open=ytWrap.classList.toggle('open');
-  document.getElementById('ytToggleBtn').textContent=open?'✕ YouTube বন্ধ':'▶ YouTube ব্যাকআপ';
-  if(open)ytFrame.src=`https://www.youtube.com/embed/${cur.ytId}?rel=0&modestbranding=1`;
-  else ytFrame.src='';
+  if(ytWrap.classList.contains('open')){ytWrap.classList.remove('open');ytFrame.src='';document.getElementById('ytToggleBtn').textContent='▶ YouTube ব্যাকআপ';return;}
+  const img=new Image();
+  img.onload=()=>{ytWrap.classList.add('open');document.getElementById('ytToggleBtn').textContent='✕ YouTube বন্ধ';ytFrame.src=`https://www.youtube.com/embed/${cur.ytId}?rel=0&modestbranding=1`;};
+  img.onerror=()=>{setStatus('YouTube ব্যাকআপ এখন পাওয়া যাচ্ছে না — মূল প্লেয়ারেই শুনুন','paused');showToast('⚠️ YouTube ব্যাকআপ এখন নেই');};
+  img.src=`https://img.youtube.com/vi/${cur.ytId}/default.jpg`;
 }
 
 // ════════════════════════════════════════
@@ -1435,36 +1432,61 @@ function updateTimerUI(){
 // ════════════════════════════════════════
 //   WATER TIMER
 // ════════════════════════════════════════
+// পানির সেশন: ১২ বার তিলাওয়াত — ফাতিহা ১, ইখলাস ৩, ফালাক ৩, নাস ৩, কুরসি ১,
+// বাকারার শেষ দুই আয়াত ১ (২৮৫+২৮৬ এক ধাপে)। ১২ বার শেষে থেমে যাবে, অটো রিপ্লে নয়।
 const WT_PHASES=[
-  {name:'সূরা আল-ফাতিহা',dur:90},{name:'আয়াতুল কুরসি',dur:120},
-  {name:'সূরা ইখলাস (৩ বার)',dur:60},{name:'সূরা ফালাক (৩ বার)',dur:90},
-  {name:'সূরা নাস (৩ বার)',dur:90}
+  {name:'সূরা আল-ফাতিহা',audio:[RUQYAH_LIST[0].audio]},
+  {name:'সূরা আল-ইখলাস (১/৩)',audio:[RUQYAH_LIST[4].audio]},
+  {name:'সূরা আল-ইখলাস (২/৩)',audio:[RUQYAH_LIST[4].audio]},
+  {name:'সূরা আল-ইখলাস (৩/৩)',audio:[RUQYAH_LIST[4].audio]},
+  {name:'সূরা আল-ফালাক (১/৩)',audio:[RUQYAH_LIST[5].audio]},
+  {name:'সূরা আল-ফালাক (২/৩)',audio:[RUQYAH_LIST[5].audio]},
+  {name:'সূরা আল-ফালাক (৩/৩)',audio:[RUQYAH_LIST[5].audio]},
+  {name:'সূরা আন-নাস (১/৩)',audio:[RUQYAH_LIST[6].audio]},
+  {name:'সূরা আন-নাস (২/৩)',audio:[RUQYAH_LIST[6].audio]},
+  {name:'সূরা আন-নাস (৩/৩)',audio:[RUQYAH_LIST[6].audio]},
+  {name:'আয়াতুল কুরসি',audio:[RUQYAH_LIST[1].audio]},
+  {name:'বাকারার শেষ দুই আয়াত',audio:[RUQYAH_LIST[2].audio,RUQYAH_LIST[3].audio]}
 ];
-let wtPhaseIdx=0,wtLeft=0,wtRunning=false,wtInterval=null,wtStarted=false;
+let wtPhaseIdx=0,wtTrackIdx=0,wtRunning=false,wtInterval=null,wtStarted=false;
+function wtPlayCurrent(){
+  const phase=WT_PHASES[wtPhaseIdx];if(!phase)return;
+  audioEl.pause();
+  audioEl.src=phase.audio[wtTrackIdx];
+  audioEl.load();
+  audioEl.play().catch(()=>{});
+  prefetchAudio(phase.audio[wtTrackIdx+1]||(WT_PHASES[wtPhaseIdx+1]&&WT_PHASES[wtPhaseIdx+1].audio[0]));
+  updateWtUI();
+}
+function wtOnAudioEnded(){
+  if(!wtStarted||!wtRunning)return;
+  const phase=WT_PHASES[wtPhaseIdx];if(!phase)return;
+  wtTrackIdx++;
+  if(wtTrackIdx<phase.audio.length){wtPlayCurrent();return;}
+  wtTrackIdx=0;
+  wtPhaseIdx++;
+  if(wtPhaseIdx>=WT_PHASES.length){wtReset(true);return;}
+  triggerBeep();showToast('💧 এখন পানিতে ৩ বার ফুঁ দিন!');
+  wtPlayCurrent();
+}
 function wtControl(){
-  if(!wtStarted){wtStarted=true;wtPhaseIdx=0;wtLeft=WT_PHASES[0].dur;document.getElementById('wtStartBtn').textContent='⏸ থামান';updateWtUI();wtRunning=true;wtInterval=setInterval(wtTick,1000);}
-  else if(wtRunning){wtRunning=false;clearInterval(wtInterval);document.getElementById('wtStartBtn').textContent='▶ চালু করুন';}
-  else{wtRunning=true;document.getElementById('wtStartBtn').textContent='⏸ থামান';wtInterval=setInterval(wtTick,1000);}
+  if(!wtStarted){wtStarted=true;wtPhaseIdx=0;wtTrackIdx=0;document.getElementById('wtStartBtn').textContent='⏸ থামান';wtRunning=true;wtPlayCurrent();wtInterval=setInterval(wtTick,1000);}
+  else if(wtRunning){wtRunning=false;audioEl.pause();clearInterval(wtInterval);document.getElementById('wtStartBtn').textContent='▶ চালু করুন';}
+  else{wtRunning=true;wtPlayCurrent();document.getElementById('wtStartBtn').textContent='⏸ থামান';wtInterval=setInterval(wtTick,1000);}
 }
 function wtTick(){
   if(!wtRunning)return;
-  wtLeft--;
-  if(wtLeft<=0){
-    wtPhaseIdx++;
-    if(wtPhaseIdx>=WT_PHASES.length){wtReset(true);return;}
-    wtLeft=WT_PHASES[wtPhaseIdx].dur;
-    triggerBeep();showToast('💧 এখন পানিতে ৩ বার ফুঁ দিন!');
-  }
   updateWtUI();
 }
 function updateWtUI(){
   const phase=WT_PHASES[wtPhaseIdx];if(!phase)return;
-  const totalDur=phase.dur;
-  const pct=((totalDur-wtLeft)/totalDur);
+  const dur=audioEl.duration||0,cur=audioEl.currentTime||0;
+  const left=Math.max(0,dur-cur);
+  const pct=dur>0?cur/dur:0;
   const circ=339.3;
   document.getElementById('wtCircleSvg').style.strokeDashoffset=circ*(1-pct);
-  const m=Math.floor(wtLeft/60),s=wtLeft%60;
-  document.getElementById('wtTime').textContent=`${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+  const m=Math.floor(left/60),s=Math.floor(left%60);
+  document.getElementById('wtTime').textContent=dur?`${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`:'--:--';
   document.getElementById('wtSurahName').textContent=phase.name;
   document.getElementById('wtPhase').textContent=`ধাপ ${wtPhaseIdx+1}/${WT_PHASES.length}`;
   const totalProgress=((wtPhaseIdx*100)+pct*100)/WT_PHASES.length;
@@ -1472,7 +1494,8 @@ function updateWtUI(){
   document.getElementById('wtCircle').className='wt-circle active';
 }
 function wtReset(done=false){
-  clearInterval(wtInterval);wtRunning=false;wtStarted=false;wtPhaseIdx=0;wtLeft=0;
+  clearInterval(wtInterval);wtRunning=false;wtStarted=false;wtPhaseIdx=0;wtTrackIdx=0;
+  audioEl.pause();
   document.getElementById('wtStartBtn').textContent='▶ শুরু করুন';
   document.getElementById('wtTime').textContent='--:--';
   document.getElementById('wtSurahName').textContent='সেশন শুরুর জন্য প্রস্তুত';
@@ -1513,7 +1536,7 @@ function updatePaperFontSize(v){
 function savePaperAsImage(){
   const c=document.getElementById('paperPreviewContainer');
   showToast('পেপার প্রসেসিং হচ্ছে...');
-  html2canvas(c,{scale:4,backgroundColor:'#ffffff',useCORS:true}).then(canvas=>{
+  const run=()=>html2canvas(c,{scale:4,backgroundColor:'#ffffff',useCORS:true}).then(canvas=>{
     canvas.toBlob(blob=>{
       if(!blob){showToast('ত্রুটি হয়েছে।');return;}
       const url=URL.createObjectURL(blob);
@@ -1521,7 +1544,13 @@ function savePaperAsImage(){
       document.body.appendChild(a);a.click();
       setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);showToast('গ্যালারিতে সেভ হয়েছে!');},100);
     },'image/png');
-  });
+  }).catch(()=>showToast('⚠️ ছবি বানানো যায়নি — নেট চেক করে আবার চেষ্টা করুন'));
+  if(typeof html2canvas!=='undefined'){run();return;}
+  const s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+  s.onload=run;
+  s.onerror=()=>showToast('⚠️ ছবি বানানোর লাইব্রেরি লোড হয়নি — নেট চেক করে আবার চেষ্টা করুন');
+  document.head.appendChild(s);
 }
 
 // ════════════════════════════════════════
@@ -1665,15 +1694,6 @@ function lcSendQuick(q){lcSend(q);}
 function lcKeyDown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();lcSend();}}
 function lcAutoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px';}
 
-// ════════════════════════════════════════
-//   APP UPDATE
-// ════════════════════════════════════════
-const APP_VER='5.1.1';
-function checkAppVersion(){
-  const v=LS.get('ruqyah_app_ver','');
-  if(v!==APP_VER){LS.set('ruqyah_app_ver',APP_VER);setTimeout(()=>document.getElementById('updateToast').classList.add('show'),2000);}
-}
-function applyAppUpdate(){document.getElementById('updateToast').classList.remove('show');showToast('আপডেট হচ্ছে...');setTimeout(()=>location.reload(true),800);}
 
 // ════════════════════════════════════════
 //   SCROLL / OFFLINE / PWA
@@ -1723,8 +1743,6 @@ async function initApp(){
   // Tasbih
   onTasbihSelect();
 
-  // Version check
-  checkAppVersion();
 
   // Community features (shared storage)
   try{
