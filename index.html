@@ -22,14 +22,14 @@
 <meta property="og:description" content="বদ নজর, হিংসা ও আধ্যাত্মিক সুরক্ষায় কুরআন ও সুন্নাহভিত্তিক সাধারণ নির্দেশনা, তিলাওয়াত ও দোয়া।"/>
 <meta property="og:locale" content="bn_BD"/>
 <meta property="og:url" content="https://allahborosa.netlify.app/"/>
-<meta property="og:image" content="https://allahborosa.netlify.app/logo.png"/>
-<meta property="og:image:width" content="1024"/>
-<meta property="og:image:height" content="1024"/>
+<meta property="og:image" content="https://allahborosa.netlify.app/share.jpg"/>
+<meta property="og:image:width" content="960"/>
+<meta property="og:image:height" content="600"/>
 <meta property="og:image:alt" content="রুকইয়াহ শিফা"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="রুকইয়াহ শিফা"/>
 <meta name="twitter:description" content="বদ নজর, হিংসা ও আধ্যাত্মিক সুরক্ষায় কুরআন ও সুন্নাহভিত্তিক সাধারণ নির্দেশনা, তিলাওয়াত ও দোয়া।"/>
-<meta name="twitter:image" content="https://allahborosa.netlify.app/logo.png"/>
+<meta name="twitter:image" content="https://allahborosa.netlify.app/share.jpg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Serif+Bengali:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -1034,12 +1034,12 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 
 <!-- FLOATING CHAT BUTTON -->
 <button id="liveChatBtn" onclick="toggleLiveChat()" aria-label="AI চ্যাট খুলুন">
-  <img src="logo.png" alt="AI চ্যাট">
+  <img src="chat-logo.png" alt="AI চ্যাট">
 </button>
 
 <div id="liveChatPanel">
   <div class="lc-header">
-    <div class="lc-avatar"><img src="logo.png" alt="রুকইয়াহ শিফা"><div class="lc-online"></div></div>
+    <div class="lc-avatar"><img src="chat-logo.png" alt="রুকইয়াহ শিফা"><div class="lc-online"></div></div>
     <div class="lc-hd-info">
       <div class="lc-name">MT Studio AI সহকারী <span class="lc-mt-badge">AI</span></div>
       <div class="lc-role">AI সহকারী • রুকইয়াহ বিষয়ক সাধারণ তথ্য</div>
@@ -1706,11 +1706,11 @@ function toggleLiveChat(){
 function lcAddMsg(role,text){
   const m=document.getElementById('lcMessages');
   const d=document.createElement('div');d.className=`lc-msg ${role}`;
-  const av=document.createElement('div');av.className='lc-msg-av';av.innerHTML=role==='bot'?'<img src="logo.png" alt="">':'👤';
+  const av=document.createElement('div');av.className='lc-msg-av';av.innerHTML=role==='bot'?'<img src="chat-logo.png" alt="">':'👤';
   const b=document.createElement('div');b.className='lc-bubble';b.innerHTML=escapeHtml(text).replace(/\n/g,'<br>');
   d.appendChild(av);d.appendChild(b);m.appendChild(d);m.scrollTop=m.scrollHeight;
 }
-function lcShowTyping(){const m=document.getElementById('lcMessages');const d=document.createElement('div');d.className='lc-msg bot';d.id='lcTyping';d.innerHTML='<div class="lc-msg-av"><img src="logo.png" alt=""></div><div class="lc-bubble"><div class="lc-typing"><span></span><span></span><span></span></div></div>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function lcShowTyping(){const m=document.getElementById('lcMessages');const d=document.createElement('div');d.className='lc-msg bot';d.id='lcTyping';d.innerHTML='<div class="lc-msg-av"><img src="chat-logo.png" alt=""></div><div class="lc-bubble"><div class="lc-typing"><span></span><span></span><span></span></div></div>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
 function lcHideTyping(){document.getElementById('lcTyping')?.remove();}
 
 async function lcSend(text){
