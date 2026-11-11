@@ -14,6 +14,10 @@ const WINDOW_MS = 60 * 1000;
 
 function rateLimited(ip) {
   const now = Date.now();
+  // পুরনো এন্ট্রি পরিষ্কার করুন — নইলে Map অনির্দিষ্টকাল বাড়তে থাকে।
+  for (const [key, list] of hits) {
+    if (list.every((t) => now - t >= WINDOW_MS)) hits.delete(key);
+  }
   const list = (hits.get(ip) || []).filter((t) => now - t < WINDOW_MS);
   list.push(now);
   hits.set(ip, list);
@@ -34,10 +38,8 @@ function allowedOrigin(event) {
     .filter(Boolean);
   const origin = header(event.headers, 'origin');
   if (!origin) return null;
-  // একই Netlify সাইট থেকে কল এলে origin সাধারণত সাইটের ডোমেইনই হবে।
-  // ALLOWED_ORIGIN না থাকলে টেস্টের জন্য origin-কে অনুমতি দেওয়া হয়;
-  // লাইভে ALLOWED_ORIGIN অবশ্যই বসান।
-  if (allowed.length === 0) return origin;
+  // ALLOWED_ORIGIN না থাকলে কোনো origin-কেই অনুমতি দেওয়া হয় না (fail closed)।
+  // লাইভে ALLOWED_ORIGIN অবশ্যই বসান — না বসালে চ্যাট কোনো উত্তর দেবে না।
   return allowed.includes(origin) ? origin : null;
 }
 
@@ -60,7 +62,8 @@ exports.handler = async (event) => {
     };
   }
   if (event.httpMethod !== 'POST') return json(405, { error: 'Method not allowed' });
-  if (!origin && header(event.headers, 'origin')) {
+  // Origin হেডার ছাড়া কোনো অনুরোধ গ্রহণ করা হয় না।
+  if (!origin) {
     return json(403, { error: 'Origin not allowed' });
   }
 
@@ -82,27 +85,36 @@ exports.handler = async (event) => {
     return json(400, { error: 'Invalid JSON' });
   }
   const messages = Array.isArray(body.messages) ? body.messages : [];
-  const userMessages = messages
-    .filter((m) => m && m.role === 'user' && typeof m.content === 'string')
-    .slice(-5)
-    .map((m) => ({ role: 'user', content: m.content.slice(0, 2000) }));
-  if (userMessages.length === 0) return json(400, { error: 'A user message is required' });
-  const totalChars = userMessages.reduce((n, m) => n + m.content.length, 0);
+  // কথোপকথনের ইতিহাস রাখা হয়: user ও assistant — শেষ ৮টি মেসেজ।
+  const history = messages
+    .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+    .slice(-8)
+    .map((m) => ({ role: m.role, content: m.content.slice(0, 2000) }));
+  if (!history.some((m) => m.role === 'user')) return json(400, { error: 'A user message is required' });
+  const totalChars = history.reduce((n, m) => n + m.content.length, 0);
   if (totalChars > 8000) return json(400, { error: 'Message too long' });
 
   try {
-    const r = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + key },
-      body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
-        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...userMessages],
-        temperature: 0.3,
-        max_tokens: 600,
-      }),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 25 * 1000);
+    let r;
+    try {
+      r = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + key },
+        body: JSON.stringify({
+          model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+          messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history],
+          temperature: 0.3,
+          max_tokens: 600,
+        }),
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeout);
+    }
     const data = await r.json();
-    if (!r.ok) return json(r.status, { error: 'OpenAI error' });
+    if (!r.ok) return json(502, { error: 'Upstream error' });
     return json(200, { reply: data.choices?.[0]?.message?.content || '' });
   } catch {
     return json(502, { error: 'Upstream error' });
