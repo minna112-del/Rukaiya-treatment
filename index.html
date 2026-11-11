@@ -131,7 +131,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 @keyframes wave{0%,100%{height:4px}50%{height:22px}}
 
 /* ── AUDIO PLAYER ── */
-.audio-player{background:#040710;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:20px;}
+.audio-player{background:#040710;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:20px;position:sticky;top:128px;z-index:40;}
 .ap-top{padding:14px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,.04);}
 .ap-cover{width:46px;height:46px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,rgba(0,212,255,.12),rgba(124,58,237,.15));display:flex;align-items:center;justify-content:center;font-size:20px;border:1px solid var(--border);}
 .ap-meta{flex:1;min-width:0}
@@ -161,7 +161,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 .yt-frame-wrap iframe{width:100%;height:105px;border:none;display:block}
 
 /* ── TABS ── */
-.tabs{display:flex;gap:4px;flex-wrap:wrap;background:rgba(0,212,255,.03);border:1px solid var(--border);border-radius:14px;padding:5px;margin-bottom:24px;position:sticky;top:12px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:50;}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;background:var(--deep);border:1px solid var(--border);border-radius:14px;padding:5px;margin-bottom:24px;position:sticky;top:12px;z-index:50;}
 .tab{flex:1;min-width:52px;padding:9px 3px;border:none;border-radius:10px;background:transparent;color:var(--dim-l);cursor:pointer;font-family:var(--sans);font-size:11.5px;font-weight:500;transition:var(--trans);display:flex;flex-direction:column;align-items:center;gap:2px;}
 .tab .tab-icon{font-size:15px}
 .tab.active{background:linear-gradient(135deg,rgba(0,212,255,.18),rgba(124,58,237,.18));color:var(--cyan-l);border:1px solid rgba(0,212,255,.3);box-shadow:0 2px 12px rgba(0,212,255,.15);}
@@ -400,6 +400,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 .ci-text{font-family:var(--sans);font-size:12.5px;color:var(--text);line-height:1.7;}
 .ci-like{display:flex;align-items:center;gap:4px;margin-top:8px;font-family:var(--sans);font-size:11px;color:var(--dim-l);cursor:pointer;width:fit-content;}
 .ci-like:hover{color:var(--cyan-l);}
+.ci-like.liked{color:var(--cyan-l);font-weight:700;}
 .comments-loading{text-align:center;font-family:var(--sans);font-size:12px;color:var(--dim-l);padding:20px;}
 .load-more-btn{width:100%;background:transparent;border:1px dashed var(--border);color:var(--dim-l);border-radius:10px;padding:10px;font-family:var(--sans);font-size:12px;cursor:pointer;margin-top:8px;transition:var(--trans);}
 .load-more-btn:hover{border-color:var(--cyan);color:var(--cyan-l);}
@@ -454,7 +455,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 .lc-footer-note{font-family:var(--sans);font-size:9.5px;color:rgba(255,255,255,.22);text-align:center;padding:6px 12px 10px;}
 
 /* ── TOAST / MODAL ── */
-.toast-container{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(8,14,26,.96);border:1px solid var(--cyan-l);color:#fffbe0;padding:12px 24px;border-radius:30px;font-size:13px;z-index:9999;box-shadow:0 10px 25px rgba(0,0,0,.6);display:flex;align-items:center;gap:8px;transition:transform .3s cubic-bezier(.175,.885,.32,1.275);pointer-events:none;}
+.toast-container{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(8,14,26,.96);border:1px solid var(--cyan-l);color:#fffbe0;padding:12px 24px;border-radius:30px;font-size:13px;z-index:9999;box-shadow:0 10px 25px rgba(0,0,0,.6);display:flex;align-items:center;gap:8px;transition:transform .3s cubic-bezier(.175,.885,.32,1.275);pointer-events:auto;cursor:pointer;}
 .toast-container.show{transform:translateX(-50%) translateY(0)}
 .toast-icon{color:var(--cyan-l);}
 
@@ -754,7 +755,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
                   <div class="rp-section-title">📖 নিজের রুকইয়াহ — পাঠ্য আয়াতসমূহ</div>
                   <div class="rp-block">
                     <div class="rp-block-title">১. সূরা আল-ফাতিহা (১ বার)</div>
-                    <div class="rp-arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ۞ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۞ مَالِكِ يَوْمِ الدِّينِ ۞ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۞ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ</div>
+                    <div class="rp-arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ✦ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ✦ مَالِكِ يَوْمِ الدِّينِ ✦ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ✦ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ</div>
                     <div class="rp-meaning"><strong>অর্থ:</strong> পরম করুণাময় আল্লাহর নামে। সমস্ত প্রশংসা আল্লাহর। আমরা কেবল আপনারই ইবাদত করি।</div>
                   </div>
                   <div class="rp-block">
@@ -764,7 +765,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
                   </div>
                   <div class="rp-block">
                     <div class="rp-block-title">৩. সূরা ইখলাস, ফালাক, নাস (৩ বার করে)</div>
-                    <div class="rp-arabic">قُلْ هُوَ اللَّهُ أَحَدٌ ۞ اللَّهُ الصَّمَدُ ۞ لَمْ يَلِدْ وَلَمْ يُولَدْ ۞ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ</div>
+                    <div class="rp-arabic">قُلْ هُوَ اللَّهُ أَحَدٌ ✦ اللَّهُ الصَّمَدُ ✦ لَمْ يَلِدْ وَلَمْ يُولَدْ ✦ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ</div>
                     <div class="rp-meaning"><strong>অর্থ:</strong> বলুন, তিনিই আল্লাহ, এক-অদ্বিতীয়। তাঁর সমতুল্য কেউ নেই।</div>
                   </div>
                 </div>
@@ -795,7 +796,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
         <div class="card-title">শুনে শুনে রুকইয়াহ — অডিও মোড</div>
         <div class="steps">
           <div class="step"><div class="step-num">১</div><div class="step-text"><strong>প্রস্তুতি:</strong> ওযু করে পরিষ্কার জায়গায় বসুন।</div></div>
-          <div class="step"><div class="step-num">২</div><div class="step-text"><strong>প্লেয়ার চালু করুন:</strong><div style="margin-top:10px"><button class="diag-btn" onclick="openTab('tilawat')">🎙️ তিলাওয়াত প্লেয়ার খুলুন ▶</button></div></div></div>
+          <div class="step"><div class="step-num">২</div><div class="step-text"><strong>প্লেয়ার চালু করুন:</strong><div style="margin-top:10px"><button class="diag-btn" onclick="openTab('tilawat');switchTilawatMode('ruqyah',document.querySelector('#tilawat .sub-mode-btn'))">🎙️ তিলাওয়াত প্লেয়ার খুলুন ▶</button></div></div></div>
           <div class="step"><div class="step-num">৩</div><div class="step-text"><strong>হাত রাখুন:</strong> শোনার সময় ডান হাত বুকে বা ব্যথার স্থানে রাখুন।</div></div>
           <div class="step"><div class="step-num">৪</div><div class="step-text"><strong>নিয়মিত করুন:</strong> ফজর ও মাগরিবের পর অন্তত ১৫-২০ মিনিট শুনুন।</div></div>
         </div>
@@ -816,8 +817,8 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
             <label class="paper-check-lbl"><input type="checkbox" id="print-rasul" onchange="updatePaperVerses()"> আমানার রাসূলু</label>
           </div>
           <div class="paper-size-control">
-            <span>🔍 ফন্ট: <strong id="fontSizeVal" style="color:var(--cyan)">4.5pt</strong></span>
-            <input type="range" class="paper-slider" id="fontSlider" min="3" max="8" step="0.5" value="4.5" oninput="updatePaperFontSize(this.value)">
+            <span>🔍 ফন্ট: <strong id="fontSizeVal" style="color:var(--cyan)">7.5pt</strong></span>
+            <input type="range" class="paper-slider" id="fontSlider" min="3" max="8" step="0.5" value="7.5" oninput="updatePaperFontSize(this.value)">
           </div>
         </div>
         <div class="paper-preview-container">
@@ -825,7 +826,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
           <div class="paper-box-ui" id="paperPreviewContainer"></div>
           <p style="font-size:12.5px;color:var(--dim-l);margin:15px 0;line-height:1.6;">প্রিন্ট করুন অথবা মোবাইলের গ্যালারিতে সেভ করুন। ছোট পেপারের জন্য ফন্ট ছোট রাখা হয়েছে — পড়তে অসুবিধা হলে স্লাইডার দিয়ে ফন্ট বড় করুন।</p>
           <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-            <button class="diag-btn" onclick="window.print()">🖨️ প্রিন্ট করুন</button>
+            <button class="diag-btn" onclick="printPaper()">🖨️ প্রিন্ট করুন</button>
             <button class="diag-btn" style="background:var(--grad-btn);border-color:var(--cyan);" onclick="savePaperAsImage()">💾 গ্যালারিতে সেভ</button>
           </div>
         </div>
@@ -846,7 +847,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
         <div class="card-title">বদ নজর ও অনিষ্টতা থেকে বাঁচার দোয়া</div>
         <div class="card-ref">সহীহ বুখারী ও সুনানে ইবনে মাজাহ</div>
         <div class="arabic" lang="ar" dir="rtl" id="basic-dua-1">أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لَامَّةٍ</div>
-        <div class="meaning"><strong>উচ্চারণ:</strong> আউযু বিকালিমাতিল্লাহিত তাম্মাতি মিন কুল্লি শায়তানিওঁ ওয়া হাম্মাহ।</div>
+        <div class="meaning"><strong>উচ্চারণ:</strong> আউযু বিকালিমাতিল্লাহিত তাম্মাতি মিন কুল্লি শায়তানিওঁ ওয়া হাম্মাহ, ওয়া মিন কুল্লি আইনিন লাম্মাহ।</div>
         <div class="dua-actions"><button class="dua-action-btn" onclick="copyTextById('basic-dua-1','কপি হয়েছে!')">📄 আরবি কপি</button></div>
       </div>
       <div class="card">
@@ -913,6 +914,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
           <span class="counter-label">ট্যাপ করুন</span>
         </button>
         <div class="counter-target" id="counterTarget">লক্ষ্যমাত্রা: ১০০ বার</div>
+        <div style="font-family:var(--sans);font-size:11.5px;color:var(--dim-l);text-align:center;margin-top:8px;">প্রতিটা জিকিরের হিসাব আলাদা থাকে — একটা বদলালে আরেকটার গোনা মুছে যায় না।</div>
         <div class="counter-progress"><div class="counter-progress-fill" id="counterFill" style="width:0%"></div></div>
         <button class="counter-reset" id="resetBtn">↺ রিসেট করুন</button>
       </div>
@@ -1012,16 +1014,16 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     </div>
     <div class="footer-contacts-title">যোগাযোগ:</div>
     <div class="footer-contacts">
-      <a class="footer-contact" href="https://www.facebook.com/mtstudioai" target="_blank" rel="noopener" aria-label="Facebook Page: MT Studio">
-        <span class="contact-logo contact-fb">f</span>
+      <a class="footer-contact" href="https://www.facebook.com/mtstudioai" target="_blank" rel="noopener">
+        <span class="contact-logo contact-fb" aria-hidden="true">f</span>
         <span class="footer-site-label">MT Studio</span>
       </a>
-      <a class="footer-contact" href="https://www.instagram.com/mt_studio_ai" target="_blank" rel="noopener" aria-label="Instagram @mt_studio_ai">
-        <span class="contact-logo contact-ig"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.2" cy="6.8" r="1.3" fill="#fff" stroke="none"/></svg></span>
+      <a class="footer-contact" href="https://www.instagram.com/mt_studio_ai" target="_blank" rel="noopener">
+        <span class="contact-logo contact-ig" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.2" cy="6.8" r="1.3" fill="#fff" stroke="none"/></svg></span>
         <span class="footer-site-label">@mt_studio_ai</span>
       </a>
-      <a class="footer-contact" href="https://www.youtube.com/@mt_studio_ai46" target="_blank" rel="noopener" aria-label="YouTube @mt_studio_ai46">
-        <span class="contact-logo contact-yt"><svg viewBox="0 0 24 24" fill="#fff"><polygon points="9,7 9,17 17,12"/></svg></span>
+      <a class="footer-contact" href="https://www.youtube.com/@mt_studio_ai46" target="_blank" rel="noopener">
+        <span class="contact-logo contact-yt" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><polygon points="9,7 9,17 17,12"/></svg></span>
         <span class="footer-site-label">@mt_studio_ai46</span>
       </a>
     </div>
@@ -1032,9 +1034,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 <button class="scroll-top" id="scrollBtn" aria-label="উপরে যান">↑</button>
 
 <!-- FLOATING CHAT BUTTON -->
-<button id="liveChatBtn" onclick="toggleLiveChat()" aria-label="AI চ্যাট খুলুন">
-  <img src="chat-logo.png" alt="AI চ্যাট">
-</button>
+<button id="liveChatBtn" onclick="toggleLiveChat()" aria-label="AI চ্যাট খুলুন">💬</button>
 
 <div id="liveChatPanel">
   <div class="lc-header">
@@ -1178,19 +1178,24 @@ function updateUrStars(val){
 }
 
 async function setUserRating(val){
-  if(userRatingGiven>0){showToast('আপনি ইতিমধ্যে রেটিং দিয়েছেন।');return;}
+  const oldRating=userRatingGiven;
   userRatingGiven=val;
   LS.set('user_rating',val);
   updateUrStars(val);
-  // Update shared data
+  // Update shared data (re-rating moves one vote: same reviewer, total unchanged)
   let data=await storeGet('stat_ratings')||{counts:{1:0,2:0,3:0,4:0,5:0},total:0,sum:0};
+  if(oldRating>0){
+    data.counts[oldRating]=Math.max(0,(data.counts[oldRating]||0)-1);
+    data.sum=Math.max(0,(data.sum||0)-oldRating);
+  }else{
+    data.total=(data.total||0)+1;
+  }
   data.counts[val]=(data.counts[val]||0)+1;
-  data.total=(data.total||0)+1;
   data.sum=(data.sum||0)+val;
   await storeSet('stat_ratings',data);
   renderRatings(data);
   document.getElementById('urDone').style.display='block';
-  showToast('⭐ '+val+' স্টার রেটিং দেওয়ার জন্য ধন্যবাদ!');
+  showToast(oldRating>0?'⭐ রেটিং বদলে '+val+' স্টার করা হয়েছে! ধন্যবাদ!':'⭐ '+val+' স্টার রেটিং দেওয়ার জন্য ধন্যবাদ!');
 }
 
 // ════════════════════════════════════════
@@ -1237,7 +1242,7 @@ function appendComment(c){
     </div>
     <div class="ci-stars">${stars}</div>
     <div class="ci-text">${escapeHtml(c.text)}</div>
-    <div class="ci-like" data-id="${c.id}" onclick="likeComment(this)">👍 <span>${c.likes||0}</span></div>
+    <div class="ci-like${(LS.get('liked_comments',[])||[]).includes(String(c.id))?' liked':''}" data-id="${c.id}" onclick="likeComment(this)">👍 <span>${c.likes||0}</span></div>
   `;
   list.appendChild(d);
 }
@@ -1270,15 +1275,26 @@ async function submitComment(){
 async function likeComment(el){
   const span=el.querySelector('span');
   let n=parseInt(span.textContent)||0;
-  n++;
-  span.textContent=n;
   const id=el.dataset&&el.dataset.id;
-  if(id){
-    let all=await storeGet('stat_comments')||[];
-    const c=all.find(x=>String(x.id)===String(id));
-    if(c){c.likes=n;await storeSet('stat_comments',all);}
+  if(!id)return;
+  let liked=LS.get('liked_comments',[]);
+  if(!Array.isArray(liked))liked=[];
+  const ix=liked.indexOf(String(id));
+  if(ix>=0){
+    liked.splice(ix,1);
+    n=Math.max(0,n-1);
+    el.classList.remove('liked');
+  }else{
+    liked.push(String(id));
+    n++;
+    el.classList.add('liked');
+    showToast('👍 ধন্যবাদ!');
   }
-  showToast('👍 ধন্যবাদ!');
+  LS.set('liked_comments',liked);
+  span.textContent=n;
+  let all=await storeGet('stat_comments')||[];
+  const c=all.find(x=>String(x.id)===String(id));
+  if(c){c.likes=n;await storeSet('stat_comments',all);}
 }
 
 function updateCharCount(el){
@@ -1306,12 +1322,12 @@ function shareApp(){
 //   AUDIO PLAYER
 // ════════════════════════════════════════
 const RUQYAH_LIST=[
-  {arabic:"الْفَاتِحَة",bn:"সূরা আল-ফাতিহা",info:"সূরা ১ • শিফার মূল সূরা",qari:"মিশারি রাশিদ আলাফাসি",cover:"☀️",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/1.mp3",ytId:"D7lSaRoJAoo"},
-  {arabic:"سُورَةُ الإِخْلَاص",bn:"সূরা আল-ইখলাস",info:"সূরা ১১২ • তাওহীদের শক্তি",qari:"মিশারি রাশিদ আলাফাসি",cover:"✨",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/112.mp3",ytId:"xuKm3xXJwvU"},
-  {arabic:"سُورَةُ الْفَلَقِ",bn:"সূরা আল-ফালাক",info:"সূরা ১১৩ • নজর ও জাদুর প্রভাব ভাঙে",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌙",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/113.mp3",ytId:"gDlMzF3KEKE"},
-  {arabic:"سُورَةُ النَّاسِ",bn:"সূরা আন-নাস",info:"সূরা ১১৪ • ওয়াসওয়াসা ধ্বংসকারী",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌟",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/114.mp3",ytId:"gEPj2Ctvhsk"},
-  {arabic:"آيَةُ الْكُرْسِيّ",bn:"আয়াতুল কুরসি",info:"বাকারাহ ২৫৫ • শয়তানি শক্তি ধ্বংসকারী",qari:"মিশারি রাশিদ আলাফাসি",cover:"🛡️",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/262.mp3",ytId:"_m1L_fOLs-g"},
-  {arabic:"آمَنَ الرَّسُولُ",bn:"বাকারাহ — ২৮৫",info:"শেষ ২ আয়াতের ১ম",qari:"মিশারি রাশিদ আলাফাসি",cover:"📖",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/292.mp3",ytId:"tKWeL2G9Y4Y"},
+  {arabic:"الْفَاتِحَة",bn:"সূরা আল-ফাতিহা",info:"সূরা ১ • শিফার মূল সূরা",qari:"মিশারি রাশিদ আলাফাসি",cover:"☀️",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/1.mp3",ytId:""},
+  {arabic:"سُورَةُ الإِخْلَاص",bn:"সূরা আল-ইখলাস",info:"সূরা ১১২ • তাওহীদের শক্তি",qari:"মিশারি রাশিদ আলাফাসি",cover:"✨",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/112.mp3",ytId:""},
+  {arabic:"سُورَةُ الْفَلَقِ",bn:"সূরা আল-ফালাক",info:"সূরা ১১৩ • নজর ও জাদুর প্রভাব ভাঙে",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌙",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/113.mp3",ytId:""},
+  {arabic:"سُورَةُ النَّاسِ",bn:"সূরা আন-নাস",info:"সূরা ১১৪ • ওয়াসওয়াসা ধ্বংসকারী",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌟",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/114.mp3",ytId:""},
+  {arabic:"آيَةُ الْكُرْسِيّ",bn:"আয়াতুল কুরসি",info:"বাকারাহ ২৫৫ • শয়তানি শক্তি ধ্বংসকারী",qari:"মিশারি রাশিদ আলাফাসি",cover:"🛡️",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/262.mp3",ytId:""},
+  {arabic:"آمَنَ الرَّسُولُ",bn:"বাকারাহ — ২৮৫",info:"শেষ ২ আয়াতের ১ম",qari:"মিশারি রাশিদ আলাফাসি",cover:"📖",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/292.mp3",ytId:""},
   {arabic:"لَا يُكَلِّفُ اللَّهُ نَفْسًا",bn:"বাকারাহ — ২৮৬",info:"শেষ ২ আয়াতের ২য়",qari:"মিশারি রাশিদ আলাফাসি",cover:"📖",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/293.mp3",ytId:""}
 ];
 const BAQARAH_LIST=[
@@ -1350,8 +1366,9 @@ audioEl.addEventListener('timeupdate',()=>{
   if(!apRange.matches(':active')){const p=audioEl.duration?(audioEl.currentTime/audioEl.duration)*100:0;apRange.value=p;apRange.style.background=`linear-gradient(to right,var(--cyan) ${p}%,rgba(255,255,255,.1) ${p}%)`;}
   apCurrent.textContent=fmtTime(audioEl.currentTime);
 });
-audioEl.addEventListener('play',()=>{setStatus('চলছে','playing');apPlay.textContent='⏸';waveWrap.classList.add('playing');});
-audioEl.addEventListener('pause',()=>{setStatus('থামানো','paused');apPlay.textContent='▶';waveWrap.classList.remove('playing');});
+audioEl.addEventListener('play',()=>{__wtResetPause=false;setStatus('চলছে','playing');apPlay.textContent='⏸';waveWrap.classList.add('playing');});
+audioEl.addEventListener('pause',()=>{if(!__wtResetPause)setStatus('থামানো','paused');__wtResetPause=false;apPlay.textContent='▶';waveWrap.classList.remove('playing');});
+let __wtResetPause=false;
 let advanceTimer=null;
 audioEl.addEventListener('ended',()=>{if(wtStarted){wtOnAudioEnded();return;}apPlay.textContent='▶';waveWrap.classList.remove('playing');clearTimeout(advanceTimer);const __next=(currentTrackIndex+1)%activePlaylist.length;advanceTimer=setTimeout(()=>playSurah(__next),1000);});
 audioEl.addEventListener('error',()=>{if(!navigator.onLine)document.getElementById('offlineBanner').classList.add('show');if(wtStarted){showToast('⚠️ অডিও চালু হয়নি — নেট চেক করে আবার চাপুন');wtReset();return;}setStatus('ত্রুটি','paused');});
@@ -1371,7 +1388,8 @@ function playSurah(idx){
   currentTrackIndex=idx;
   const s=activePlaylist[idx];
   audioEl.pause();audioEl.src=s.audio;audioEl.load();
-  apCurrent.textContent='00:00';apRange.value=0;apRange.style.background='linear-gradient(to right,var(--cyan) 0%,rgba(255,255,255,.1) 0%)';apDuration.textContent='--:--';
+  apCurrent.textContent='00:00';apRange.value=0;apRange.style.background='linear-gradient(to right,var(--cyan) 0%,rgba(255,255,255,.1) 0%)';apDuration.textContent='লোড হচ্ছে…';
+  document.getElementById('ytToggleBtn').style.display=s.ytId?'':'none';
   apTitle.textContent=s.bn;apSub.textContent=s.qari;apCover.textContent=s.cover;
   document.getElementById('npArabic').textContent=s.arabic;
   document.getElementById('npBn').textContent=s.bn;
@@ -1450,9 +1468,19 @@ function runSymptomCheck(){
   res.style.display='block';
   res.scrollIntoView({behavior:'smooth',block:'nearest'});
   const t=document.getElementById('diagTitleText'),d=document.getElementById('diagDescText'),b=document.getElementById('diagBtnAction');
-  if(eye>=magic&&eye>=jinn){t.textContent='নজর/হাসাদ সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো নজরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। সূরা ফাতিহা ও ফালাক পড়া/শোনা যেতে পারে। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');switchTilawatMode('ruqyah',document.querySelector('#tilawat .sub-mode-btn'));setTimeout(()=>playSurah(0),200);};}
-  else if(magic>=jinn){t.textContent='সিহর সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো সিহরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। বাকারাহর শেষ আয়াত ও রুকইয়াহ পানি সম্পর্কে নিচের পদ্ধতি দেখুন। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');switchTilawatMode('ruqyah',document.querySelector('#tilawat .sub-mode-btn'));setTimeout(()=>playSurah(5),200);};}
-  else{t.textContent='জ্বীনের স্পর্শ সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো জ্বীনের স্পর্শের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। আয়াতুল কুরসি ও নাস মনোযোগে শুনুন। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');switchTilawatMode('ruqyah',document.querySelector('#tilawat .sub-mode-btn'));setTimeout(()=>playSurah(4),200);};}
+  const __cats={
+    eye:{name:'নজর/হাসাদ',core:'এই লক্ষণগুলো নজরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। সূরা ফাতিহা ও ফালাক পড়া/শোনা যেতে পারে।',play:0},
+    magic:{name:'সিহর',core:'এই লক্ষণগুলো সিহরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। বাকারাহর শেষ আয়াত ও রুকইয়াহ পানি সম্পর্কে নিচের পদ্ধতি দেখুন।',play:5},
+    jinn:{name:'জ্বীনের স্পর্শ',core:'এই লক্ষণগুলো জ্বীনের স্পর্শের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। আয়াতুল কুরসি ও নাস মনোযোগে শুনুন।',play:4}
+  };
+  const __counts={eye,magic,jinn};
+  const __max=Math.max(eye,magic,jinn);
+  const __tied=Object.keys(__counts).filter(k=>__counts[k]===__max);
+  const __doc='শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';
+  t.textContent=__tied.map(k=>__cats[k].name).join(' ও ')+' সম্পর্কিত সম্ভাব্য নির্দেশনা';
+  d.textContent=__tied.map(k=>__cats[k].core).join(' ')+' '+__doc;
+  const __playIdx=__tied.length===1?__cats[__tied[0]].play:0;
+  b.onclick=()=>{openTab('tilawat');switchTilawatMode('ruqyah',document.querySelector('#tilawat .sub-mode-btn'));setTimeout(()=>playSurah(__playIdx),200);};
 }
 
 // ════════════════════════════════════════
@@ -1569,7 +1597,11 @@ function updateWtUI(){
 }
 function wtReset(done=false){
   clearInterval(wtInterval);wtRunning=false;wtStarted=false;wtPhaseIdx=0;wtTrackIdx=0;
+  __wtResetPause=!audioEl.paused;
   audioEl.pause();
+  audioEl.currentTime=0;
+  apCurrent.textContent='00:00';apRange.value=0;apRange.style.background='linear-gradient(to right,var(--cyan) 0%,rgba(255,255,255,.1) 0%)';apDuration.textContent='00:00';
+  setStatus('প্রস্তুত','paused');apPlay.textContent='▶';
   document.getElementById('wtStartBtn').textContent='▶ শুরু করুন';
   document.getElementById('wtTime').textContent='--:--';
   document.getElementById('wtSurahName').textContent='সেশন শুরুর জন্য প্রস্তুত';
@@ -1586,16 +1618,16 @@ function wtReset(done=false){
 const PRINT_VERSES={
   fatiha:'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ﴿١﴾ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿٢﴾ الرَّحْمَنِ الرَّحِيمِ ﴿٣﴾ مَالِكِ يَوْمِ الدِّينِ ﴿٤﴾ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٥﴾ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',
   kursi:'اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَهُوَ الْعَلِيُّ الْعَظِيمُ',
-  ikhlas:'قُلْ هُوَ اللَّهُ أَحَدٌ ۞ اللَّهُ الصَّمَدُ ۞ لَمْ يَلِدْ وَلَمْ يُولَدْ ۞ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ',
-  falaq:'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۞ مِن شَرِّ مَا خَلَقَ ۞ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۞ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ',
-  nas:'قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۞ مَلِكِ النَّاسِ ۞ إِلَهِ النَّاسِ ۞ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ',
+  ikhlas:'قُلْ هُوَ اللَّهُ أَحَدٌ ✦ اللَّهُ الصَّمَدُ ✦ لَمْ يَلِدْ وَلَمْ يُولَدْ ✦ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ',
+  falaq:'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ✦ مِن شَرِّ مَا خَلَقَ ✦ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ✦ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ',
+  nas:'قُلْ أَعُوذُ بِرَبِّ النَّاسِ ✦ مَلِكِ النَّاسِ ✦ إِلَهِ النَّاسِ ✦ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ',
   rasul:'آمَنَ الرَّسُولُ بِمَا أُنزِلَ إِلَيْهِ مِن رَّبِّهِ وَالْمُؤْمِنُونَ ۚ لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا'
 };
-let currentFontSize='4.5pt';
+let currentFontSize='7.5pt';
 function updatePaperVerses(){
   const keys=['fatiha','kursi','ikhlas','falaq','nas','rasul'];
   const sel=keys.filter(k=>document.getElementById('print-'+k)?.checked);
-  const text=sel.map(k=>PRINT_VERSES[k]).join(' ۞ ');
+  const text=sel.map(k=>PRINT_VERSES[k]).join(' ✦ ');
   const box=document.getElementById('paperPreviewContainer');
   box.innerHTML=`<div class="p-text" style="font-size:${currentFontSize}">${text||'কোনো সূরা নির্বাচন করা হয়নি'}</div>`;
   const print=document.getElementById('printable-ruqyah-paper');
@@ -1616,6 +1648,11 @@ function updatePaperFontSize(v){
   updatePaperVerses();
 }
 
+function printPaper(){
+  showToast('প্রিন্টের জানালা খুলছে — বন্ধ করলে এখানে ফিরে আসবেন');
+  setTimeout(()=>window.print(),600);
+}
+window.addEventListener('afterprint',()=>showToast('প্রিন্ট শেষ — আবার এখানে ফিরে এসেছেন'));
 function savePaperAsImage(){
   const c=document.getElementById('paperPreviewContainer');
   showToast('পেপার প্রসেসিং হচ্ছে...');
@@ -1669,29 +1706,35 @@ document.getElementById('resetBtn').addEventListener('click',()=>{tasbihCount=0;
 const UQOOD=[
   {ar:'رَبِّ إِنِّي مَسَّنِيَ الضُّرُّ وَأَنتَ أَرْحَمُ الرَّاحِمِينَ',tr:'রব্বি ইন্নী মাস্সানিয়াদ্দুররু ওয়া আনতা আরহামুর রাহিমীন।',mean:'হে আমার রব! আমি কষ্টে পড়েছি, আর আপনি সর্বোচ্চ দয়ালু।',ref:'সূরা আম্বিয়া: ৮৩'},
   {ar:'لَا إِلَهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ',tr:'লা ইলাহা ইল্লা আনতা সুবহানাকা ইন্নী কুনতু মিনাজ্‌জালিমীন।',mean:'আপনি ছাড়া কোনো ইলাহ নেই, আপনি পবিত্র, আমি ছিলাম জালিমদের একজন।',ref:'সূরা আম্বিয়া: ৮৭ — দোয়া ইউনুস'},
-  {ar:'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحُزْنِ',tr:'আল্লাহুম্মা ইন্নী আউযু বিকা মিনাল হাম্মি ওয়াল হুযন।',mean:'হে আল্লাহ! আমি আপনার কাছে উদ্বেগ ও দুশ্চিন্তা থেকে আশ্রয় চাচ্ছি।',ref:'সহীহ বুখারি'}
+  {ar:'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ وَالْجُبْنِ وَالْبُخْلِ وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ',tr:'আল্লাহুম্মা ইন্নী আউযু বিকা মিনাল হাম্মি ওয়াল হাযানি, ওয়াল \'আজযি ওয়াল কাসালি, ওয়াল জুবনি ওয়াল বুখলি, ওয়া দালা\'ইদ্দাইনি ওয়া গালাবাতির রিজাল।',mean:'হে আল্লাহ! আমি আপনার কাছে উদ্বেগ ও দুশ্চিন্তা, অক্ষমতা ও অলসতা, ভীরুতা ও কৃপণতা, ঋণের ভার ও মানুষের আধিপত্য থেকে আশ্রয় চাচ্ছি।',ref:'সহীহ বুখারি'}
 ];
 function renderUqood(){
   document.getElementById('uqoodContainer').innerHTML=UQOOD.map((u,i)=>`
     <div class="uqood-item">
       <div class="uqood-num">দোয়া ${i+1} • ${u.ref}</div>
-      <div class="uqood-arabic">${u.ar}</div>
+      <div class="uqood-arabic" id="uqood-ar-${i}">${u.ar}</div>
       <div class="uqood-tr">${u.tr}</div>
       <div class="uqood-meaning">${u.mean}</div>
+      <div class="dua-actions"><button class="dua-action-btn" onclick="copyTextById('uqood-ar-${i}','কপি হয়েছে!')">📄 আরবি কপি</button></div>
     </div>`).join('');
 }
 
 // ════════════════════════════════════════
 //   TOAST / MODAL / COPY
 // ════════════════════════════════════════
-let toastTimer;
+let toastTimer,toastShownAt=0;
 function showToast(msg){
   const t=document.getElementById('toastAlert');
   document.getElementById('toastMessage').textContent=msg;
   t.classList.add('show');
+  toastShownAt=Date.now();
   clearTimeout(toastTimer);
   toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
 }
+// Safety net: a toast must never stay visible more than a few seconds,
+// even if its hide timer is ever swallowed (e.g. background-tab throttling).
+setInterval(()=>{const t=document.getElementById('toastAlert');if(t&&t.classList.contains('show')&&Date.now()-toastShownAt>4500)t.classList.remove('show');},1000);
+document.getElementById('toastAlert').addEventListener('click',()=>document.getElementById('toastAlert').classList.remove('show'));
 function triggerBeep(freq=880){
   try{const c=new(window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator();const g=c.createGain();o.type='sine';o.frequency.value=freq;g.gain.setValueAtTime(.025,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.1);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.1);}catch{}
 }
@@ -1723,11 +1766,16 @@ function toggleLiveChat(){
   p.classList.toggle('open');
   if(opening)document.getElementById('lcQuickBtns').style.display='';
 }
+function renderMd(text){
+  const d=document.createElement('div');
+  d.appendChild(document.createTextNode(text));
+  return d.innerHTML.replace(/\*\*([^*]+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+}
 function lcAddMsg(role,text){
   const m=document.getElementById('lcMessages');
   const d=document.createElement('div');d.className=`lc-msg ${role}`;
   const av=document.createElement('div');av.className='lc-msg-av';av.innerHTML=role==='bot'?'<img src="chat-logo.png" alt="">':'👤';
-  const b=document.createElement('div');b.className='lc-bubble';b.innerHTML=escapeHtml(text).replace(/\n/g,'<br>');
+  const b=document.createElement('div');b.className='lc-bubble';b.innerHTML=role==='bot'?renderMd(text):escapeHtml(text).replace(/\n/g,'<br>');
   d.appendChild(av);d.appendChild(b);m.appendChild(d);m.scrollTop=m.scrollHeight;
 }
 function lcShowTyping(){const m=document.getElementById('lcMessages');const d=document.createElement('div');d.className='lc-msg bot';d.id='lcTyping';d.innerHTML='<div class="lc-msg-av"><img src="chat-logo.png" alt=""></div><div class="lc-bubble"><div class="lc-typing"><span></span><span></span><span></span></div></div>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
@@ -1815,8 +1863,14 @@ async function initApp(){
   document.getElementById('npArabic').textContent=s.arabic;
   document.getElementById('npBn').textContent=s.bn;
   setStatus('প্রস্তুত','paused');
+  document.getElementById('ytToggleBtn').style.display=s.ytId?'':'none';
   audioEl.volume=0.8;
   document.querySelectorAll('.accordion-trigger').forEach(b=>{b.dataset.orig=b.textContent;});
+  // Accordion label must match the panel's real state on load
+  document.querySelectorAll('.accordion-trigger').forEach(b=>{
+    const m=(b.getAttribute('onclick')||'').match(/toggleAccordion\('([^']+)'/);
+    if(m&&document.getElementById(m[1])&&document.getElementById(m[1]).classList.contains('open'))b.textContent='❌ বন্ধ করুন';
+  });
   const __wtList=document.getElementById('wtPhaseList');
   if(__wtList){const __bn=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);__wtList.innerHTML=WT_PHASES.map((p,i)=>`<li>${__bn(i+1)}. ${p.name}</li>`).join('');}
 
