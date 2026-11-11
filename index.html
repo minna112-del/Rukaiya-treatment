@@ -457,12 +457,6 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 .toast-container{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(8,14,26,.96);border:1px solid var(--cyan-l);color:#fffbe0;padding:12px 24px;border-radius:30px;font-size:13px;z-index:9999;box-shadow:0 10px 25px rgba(0,0,0,.6);display:flex;align-items:center;gap:8px;transition:transform .3s cubic-bezier(.175,.885,.32,1.275);pointer-events:none;}
 .toast-container.show{transform:translateX(-50%) translateY(0)}
 .toast-icon{color:var(--cyan-l);}
-.custom-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;display:none;align-items:center;justify-content:center;padding:16px;}
-.custom-modal.show{display:flex;}
-.modal-content{background:#0a0e1a;border:1px solid var(--cyan);border-radius:12px;padding:24px;max-width:400px;width:100%;text-align:center;}
-.modal-title{font-size:16px;color:var(--cyan-l);font-weight:700;margin-bottom:12px;}
-.modal-desc{font-size:13.5px;color:var(--dim-l);line-height:1.6;margin-bottom:20px;}
-.modal-actions{display:flex;gap:10px;justify-content:center;}
 
 /* ── SCROLL TOP ── */
 .scroll-top{position:fixed;right:20px;bottom:26px;width:46px;height:46px;border:none;border-radius:50%;background:var(--grad-btn);color:#fff;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s ease;z-index:100;box-shadow:var(--shadow),var(--glow-c);}
@@ -587,7 +581,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
   </header>
 
   <div class="now-playing">
-    <div class="np-label">এখন বাজছে</div>
+    <div class="np-label" id="npLabel">শুনতে প্রস্তুত</div>
     <div class="np-arabic" id="npArabic">الْفَاتِحَة</div>
     <div class="np-bn" id="npBn">সূরা আল-ফাতিহা</div>
     <div class="np-info" id="npInfo">ক্বারী: মিশারি রাশিদ আলাফাসি</div>
@@ -607,6 +601,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
     <button class="tab" data-tab="dua"><span class="tab-icon">🤲</span><span>দোয়া</span></button>
     <button class="tab" data-tab="routine"><span class="tab-icon">🌙</span><span>রুটিন</span></button>
     <button class="tab" data-tab="tasbih"><span class="tab-icon">📿</span><span>তাসবীহ</span></button>
+    <button class="tab" data-tab="community"><span class="tab-icon">💬</span><span>কমিউনিটি</span></button>
   </div>
 
   <!-- ═══ SECTION 1: তিলাওয়াত ═══ -->
@@ -660,6 +655,10 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
           <div class="wt-step"><div class="wt-step-num">২</div><span>টাইমার শুরু হলে মনোযোগ দিয়ে তিলাওয়াত শুনুন</span></div>
           <div class="wt-step"><div class="wt-step-num">৩</div><span>প্রতিটি ধাপ শেষে পানিতে ৩ বার ফুঁ দিন</span></div>
         </div>
+        <div style="margin-top:14px">
+          <div style="font-family:var(--sans);font-size:12px;color:var(--dim-l);margin-bottom:8px">সেশনের ১২টি ধাপ (মোট ১৩ বার তিলাওয়াত):</div>
+          <ol id="wtPhaseList" style="font-family:var(--sans);font-size:12.5px;color:var(--text);line-height:1.9;margin:0;padding-left:20px"></ol>
+        </div>
         <div class="wt-timer-display">
           <div class="wt-surah-name" id="wtSurahName">সেশন শুরুর জন্য প্রস্তুত</div>
           <div class="wt-circle" id="wtCircle">
@@ -674,7 +673,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
           <button class="wt-btn wt-btn-reset" onclick="wtReset()">↺ রিসেট</button>
         </div>
         <div class="wt-progress-bar"><div class="wt-progress-fill" id="wtProgressFill"></div></div>
-        <div class="wt-done-msg" id="wtDoneMsg">✅ <strong>সেশন সম্পন্ন!</strong><br/>এখন পানি পান করুন এবং অলিভ অয়েল শরীরে মালিশ করুন।<br/>আল্লাহ আপনাকে শিফা দান করুন। আমীন।</div>
+        <div class="wt-done-msg" id="wtDoneMsg">✅ <strong>সেশন সম্পন্ন!</strong><br/>এখন পানিতে ৩ বার ফুঁ দিন, তারপর পানি পান করুন এবং অলিভ অয়েল শরীরে মালিশ করুন।<br/>আল্লাহ আপনাকে শিফা দান করুন। আমীন।</div>
       </div>
     </div>
     <div class="sub-content" id="sc-baqarah">
@@ -873,7 +872,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
       <ul class="amal-list">
         <li>৩ বার সূরা ইখলাস, ফালাক ও নাস পাঠ করে শরীর মুছে নেওয়া</li>
         <li>১ বার আয়াতুল কুরসি পাঠ (সারাদিন আল্লাহর হেফাজতে)</li>
-        <li>৩ বার 'বিসমিল্লাহিল্লাযী লা ইয়াদুররু...' পাঠ</li>
+        <li>৩ বার 'বিসমিল্লাহিল্লাযী লা ইয়াদুররু মা'আসমিহী শাইউন ফিল আরদি ওয়ালা ফিস সামা-ই ওয়া হুয়াস সামী'উল 'আলীম' পাঠ</li>
       </ul>
     </div></div>
     <div class="time-block"><div class="time-icon">🌇</div><div>
@@ -881,7 +880,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
       <ul class="amal-list">
         <li>৩ বার সূরা ইখলাস, ফালাক ও নাস পাঠ ও শরীর মাসেহ</li>
         <li>১ বার আয়াতুল কুরসি পাঠ</li>
-        <li>৩ বার 'আউযু বিকালিমাতিল্লাহিত তাম্মাতি...' পাঠ</li>
+        <li>৩ বার 'আউযু বিকালিমাতিল্লাহিত তাম্মাতি মিন শাররি মা খালাক্ব' পাঠ</li>
       </ul>
     </div></div>
     <div class="time-block"><div class="time-icon">🛌</div><div>
@@ -923,7 +922,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
   <!-- ════════════════════════════════════
        ── COMMUNITY SECTION (NEW) ──
   ════════════════════════════════════ -->
-  <div class="community-section">
+  <div class="community-section" id="community">
     <div class="community-header">
       <div>
         <div class="community-title">🌟 কমিউনিটি রিভিউ</div>
@@ -999,7 +998,7 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
         <span class="footer-site-label">MT Studio</span>
       </a>
       <a class="footer-site" href="https://golapishop.online" target="_blank" rel="noopener">
-        <span class="footer-site-circle"><span class="footer-site-letter">গো</span><img src="https://golapishop.online/icons/head_logo.webp" alt="গোলাপি শপ" onerror="this.style.display='none'"></span>
+        <span class="footer-site-circle"><span class="footer-site-letter">গো</span><img src="https://golapishop.online/icons/head_logo.webp" alt="" onerror="this.style.display='none'"></span>
         <span class="footer-site-label">গোলাপি শপ</span>
       </a>
       <a class="footer-site" href="https://golapifoundation.netlify.app" target="_blank" rel="noopener">
@@ -1067,16 +1066,6 @@ h1{font-size:clamp(18px,5vw,28px);margin-bottom:8px;animation:fadeDown .9s ease 
 </div>
 
 <div class="toast-container" id="toastAlert"><span class="toast-icon">✨</span><span id="toastMessage">সম্পন্ন!</span></div>
-<div class="custom-modal" id="customModal">
-  <div class="modal-content">
-    <div class="modal-title" id="modalTitle">নিশ্চিত করুন</div>
-    <div class="modal-desc" id="modalDesc"></div>
-    <div class="modal-actions">
-      <button class="timer-btn-action" id="modalConfirmBtn">নিশ্চিত</button>
-      <button class="timer-btn-action btn-secondary" onclick="closeCustomModal()">বাতিল</button>
-    </div>
-  </div>
-</div>
 
 <script>
 // ════════════════════════════════════════
@@ -1095,10 +1084,12 @@ const LS={
 
   //   REAL-TIME STATS
 // ════════════════════════════════════════
+function setPill(id,show){const el=document.getElementById(id);if(el&&el.closest){const p=el.closest('.stat-pill');if(p)p.style.display=show?'':'none';}}
 async function initStats(){
     const views=await storeInc('stat_total_views');
     const el=document.getElementById('totalViews');
     if(el) el.textContent=fmt2(views);
+    setPill('totalViews',views>=10);
   }
   function fmt2(n){
   if(n>=1000000)return(n/1000000).toFixed(1)+'M';
@@ -1116,6 +1107,7 @@ async function initLikes(){
   total=total||0;
   document.getElementById('likeCount').textContent=fmt2(total);
   document.getElementById('totalLikesBar').textContent=fmt2(total);
+  setPill('totalLikesBar',total>0);
   if(userLiked){
     document.getElementById('likeBtn').classList.add('liked');
     document.getElementById('likeIcon').textContent='❤️';
@@ -1133,6 +1125,7 @@ async function toggleLike(){
     await storeSet('stat_total_likes',t);
     document.getElementById('likeCount').textContent=fmt2(t);
     document.getElementById('totalLikesBar').textContent=fmt2(t);
+    setPill('totalLikesBar',t>0);
   }else{
     userLiked=true;
     LS.set('user_liked',true);
@@ -1141,6 +1134,7 @@ async function toggleLike(){
     const t=await storeInc('stat_total_likes');
     document.getElementById('likeCount').textContent=fmt2(t);
     document.getElementById('totalLikesBar').textContent=fmt2(t);
+    setPill('totalLikesBar',t>0);
     showToast('❤️ ধন্যবাদ! আপনার ভালোবাসা পেয়ে ভালো লাগলো।');
   }
 }
@@ -1166,7 +1160,8 @@ function renderRatings(data){
   document.getElementById('avgRatingDisplay').textContent=avg>0?avg.toFixed(1):'—';
   document.getElementById('ratingCountDisplay').textContent=total+'টি রিভিউ';
   document.getElementById('avgRatingBar').textContent=avg>0?avg.toFixed(1)+'★':'—';
-  const starsStr=avg>0?'★'.repeat(Math.round(avg)):'⭐⭐⭐⭐⭐';
+  setPill('avgRatingBar',total>0);
+  const starsStr=avg>0?'★'.repeat(Math.round(avg)):'☆☆☆☆☆';
   document.getElementById('avgStarsDisplay').textContent=starsStr;
   for(let i=1;i<=5;i++){
     const c=data.counts[i]||0;
@@ -1231,7 +1226,7 @@ async function loadComments(reset=false){
 function appendComment(c){
   const list=document.getElementById('commentsList');
   const av=AVATARS[Math.abs(hashStr(c.name))%AVATARS.length];
-  const stars='⭐'.repeat(c.stars||5);
+  const stars=c.stars>0?'⭐'.repeat(c.stars):'☆☆☆☆☆';
   const d=document.createElement('div');
   d.className='comment-item';
   d.innerHTML=`
@@ -1242,7 +1237,7 @@ function appendComment(c){
     </div>
     <div class="ci-stars">${stars}</div>
     <div class="ci-text">${escapeHtml(c.text)}</div>
-    <div class="ci-like" onclick="likeComment(this)">👍 <span>${c.likes||0}</span></div>
+    <div class="ci-like" data-id="${c.id}" onclick="likeComment(this)">👍 <span>${c.likes||0}</span></div>
   `;
   list.appendChild(d);
 }
@@ -1257,7 +1252,7 @@ async function submitComment(){
   const text=document.getElementById('commentText').value.trim();
   if(!name){showToast('⚠️ আপনার নাম লিখুন।');return;}
   if(text.length<5){showToast('⚠️ কমপক্ষে ৫ অক্ষরের মন্তব্য লিখুন।');return;}
-  const stars=userRatingGiven||5;
+  const stars=userRatingGiven;
   const comment={name,text,stars,ts:Date.now(),likes:0,id:Date.now()+Math.random()};
   let all=await storeGet('stat_comments')||[];
   all.push(comment);
@@ -1277,7 +1272,12 @@ async function likeComment(el){
   let n=parseInt(span.textContent)||0;
   n++;
   span.textContent=n;
-  // Note: updating individual comment likes in shared storage
+  const id=el.dataset&&el.dataset.id;
+  if(id){
+    let all=await storeGet('stat_comments')||[];
+    const c=all.find(x=>String(x.id)===String(id));
+    if(c){c.likes=n;await storeSet('stat_comments',all);}
+  }
   showToast('👍 ধন্যবাদ!');
 }
 
@@ -1311,8 +1311,8 @@ const RUQYAH_LIST=[
   {arabic:"سُورَةُ الْفَلَقِ",bn:"সূরা আল-ফালাক",info:"সূরা ১১৩ • নজর ও জাদুর প্রভাব ভাঙে",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌙",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/113.mp3",ytId:"gDlMzF3KEKE"},
   {arabic:"سُورَةُ النَّاسِ",bn:"সূরা আন-নাস",info:"সূরা ১১৪ • ওয়াসওয়াসা ধ্বংসকারী",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌟",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/114.mp3",ytId:"gEPj2Ctvhsk"},
   {arabic:"آيَةُ الْكُرْسِيّ",bn:"আয়াতুল কুরসি",info:"বাকারাহ ২৫৫ • শয়তানি শক্তি ধ্বংসকারী",qari:"মিশারি রাশিদ আলাফাসি",cover:"🛡️",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/262.mp3",ytId:"_m1L_fOLs-g"},
-  {arabic:"آمَنَ الرَّسُولُ",bn:"বাকারাহ — ২৮৫",info:"বাকারাহ ২৮৫ • শেষ ২ আয়াতের ১ম",qari:"মিশারি রাশিদ আলাফাসি",cover:"📖",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/292.mp3",ytId:"tKWeL2G9Y4Y"},
-  {arabic:"لَا يُكَلِّفُ اللَّهُ نَفْسًا",bn:"বাকারাহ — ২৮৬",info:"বাকারাহ ২৮৬ • শেষ ২ আয়াতের ২য়",qari:"মিশারি রাশিদ আলাফাসি",cover:"📖",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/293.mp3",ytId:""}
+  {arabic:"آمَنَ الرَّسُولُ",bn:"বাকারাহ — ২৮৫",info:"শেষ ২ আয়াতের ১ম",qari:"মিশারি রাশিদ আলাফাসি",cover:"📖",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/292.mp3",ytId:"tKWeL2G9Y4Y"},
+  {arabic:"لَا يُكَلِّفُ اللَّهُ نَفْسًا",bn:"বাকারাহ — ২৮৬",info:"শেষ ২ আয়াতের ২য়",qari:"মিশারি রাশিদ আলাফাসি",cover:"📖",audio:"https://cdn.islamic.network/quran/audio/128/ar.alafasy/293.mp3",ytId:""}
 ];
 const BAQARAH_LIST=[
   {arabic:"سُورَةُ التَّكَاثُرِ",bn:"সূরা আত-তাকাসুর",info:"সূরা ১০২ • ৮ আয়াত",qari:"মিশারি রাশিদ আলাফাসি",cover:"🌿",audio:"https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/102.mp3",ytId:""},
@@ -1341,7 +1341,7 @@ const ytWrap=document.getElementById('ytFrameWrap');
 const ytFrame=document.getElementById('ytPlayer');
 
 function fmtTime(s){if(!s||isNaN(s))return'00:00';const m=Math.floor(s/60),sec=Math.floor(s%60);return`${m.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;}
-function setStatus(t,cls){apStatus.textContent=t;apStatus.className='ap-status '+cls;}
+function setStatus(t,cls){apStatus.textContent=t;apStatus.className='ap-status '+cls;const __nl=document.getElementById('npLabel');if(__nl)__nl.textContent=t;}
 function setVolume(v){audioEl.volume=v/100;}
 
 audioEl.addEventListener('loadstart',()=>setStatus('লোড...','loading'));
@@ -1352,10 +1352,11 @@ audioEl.addEventListener('timeupdate',()=>{
 });
 audioEl.addEventListener('play',()=>{setStatus('চলছে','playing');apPlay.textContent='⏸';waveWrap.classList.add('playing');});
 audioEl.addEventListener('pause',()=>{setStatus('থামানো','paused');apPlay.textContent='▶';waveWrap.classList.remove('playing');});
-audioEl.addEventListener('ended',()=>{if(wtStarted){wtOnAudioEnded();return;}apPlay.textContent='▶';waveWrap.classList.remove('playing');setTimeout(()=>playSurah((currentTrackIndex+1)%activePlaylist.length),1000);});
-audioEl.addEventListener('error',()=>{if(wtStarted){showToast('⚠️ অডিও চালু হয়নি — নেট চেক করে আবার চাপুন');wtReset();return;}setStatus('ত্রুটি','paused');});
+let advanceTimer=null;
+audioEl.addEventListener('ended',()=>{if(wtStarted){wtOnAudioEnded();return;}apPlay.textContent='▶';waveWrap.classList.remove('playing');clearTimeout(advanceTimer);const __next=(currentTrackIndex+1)%activePlaylist.length;advanceTimer=setTimeout(()=>playSurah(__next),1000);});
+audioEl.addEventListener('error',()=>{if(!navigator.onLine)document.getElementById('offlineBanner').classList.add('show');if(wtStarted){showToast('⚠️ অডিও চালু হয়নি — নেট চেক করে আবার চাপুন');wtReset();return;}setStatus('ত্রুটি','paused');});
 apRange.addEventListener('input',()=>{if(audioEl.duration)audioEl.currentTime=(apRange.value/100)*audioEl.duration;});
-apPlay.addEventListener('click',()=>{audioEl.paused?audioEl.play().catch(()=>setStatus('ট্যাপ','paused')):audioEl.pause();});
+apPlay.addEventListener('click',()=>{if(wtStarted){wtControl();return;}audioEl.paused?audioEl.play().catch(()=>setStatus('ট্যাপ','paused')):audioEl.pause();});
 document.getElementById('apPrev').addEventListener('click',()=>playSurah((currentTrackIndex-1+activePlaylist.length)%activePlaylist.length));
 document.getElementById('apNext').addEventListener('click',()=>playSurah((currentTrackIndex+1)%activePlaylist.length));
 document.getElementById('apRew').addEventListener('click',()=>{audioEl.currentTime=Math.max(0,audioEl.currentTime-10);});
@@ -1365,18 +1366,26 @@ document.getElementById('apFwd').addEventListener('click',()=>{audioEl.currentTi
 const __prefetchAudioEl=new Audio();
 function prefetchAudio(url){if(!url)return;try{__prefetchAudioEl.preload='auto';__prefetchAudioEl.src=url;__prefetchAudioEl.load();}catch(e){}}
 function playSurah(idx){
+  clearTimeout(advanceTimer);
+  if(wtStarted)wtReset();
   currentTrackIndex=idx;
   const s=activePlaylist[idx];
   audioEl.pause();audioEl.src=s.audio;audioEl.load();
+  apCurrent.textContent='00:00';apRange.value=0;apRange.style.background='linear-gradient(to right,var(--cyan) 0%,rgba(255,255,255,.1) 0%)';apDuration.textContent='--:--';
   apTitle.textContent=s.bn;apSub.textContent=s.qari;apCover.textContent=s.cover;
   document.getElementById('npArabic').textContent=s.arabic;
   document.getElementById('npBn').textContent=s.bn;
   document.getElementById('npInfo').textContent='ক্বারী: '+s.qari;
-  document.querySelectorAll('.surah-item').forEach((el,i)=>{
-    el.classList.toggle('active',i===idx);
-    el.querySelector('.si-play').textContent=i===idx?'⏸':'▶';
+  const __activeListId=activePlaylist===RUQYAH_LIST?'surahListRuqyah':activePlaylist===BAQARAH_LIST?'surahListBaqarah':'surahListDua';
+  ['surahListRuqyah','surahListBaqarah','surahListDua'].forEach((cid)=>{
+    const listEl=document.getElementById(cid);if(!listEl)return;
+    const isActive=cid===__activeListId;
+    Array.from(listEl.children).forEach((el,i)=>{
+      el.classList.toggle('active',isActive&&i===idx);
+      const b=el.querySelector('.si-play');if(b)b.textContent=(isActive&&i===idx)?'⏸':'▶';
+    });
   });
-  if(ytWrap.classList.contains('open')){if(s.ytId)ytFrame.src=`https://www.youtube.com/embed/${s.ytId}?autoplay=1&rel=0`;else ytFrame.src='';}
+  if(ytWrap.classList.contains('open')){if(s.ytId)ytFrame.src=`https://www.youtube.com/embed/${s.ytId}?autoplay=1&rel=0`;else{ytWrap.classList.remove('open');ytFrame.src='';document.getElementById('ytToggleBtn').textContent='▶ YouTube ব্যাকআপ';}}
   audioEl.play().then(()=>apPlay.textContent='⏸').catch(()=>setStatus('ট্যাপ করুন','paused'));
   prefetchAudio(activePlaylist[(idx+1)%activePlaylist.length].audio);
 }
@@ -1386,7 +1395,7 @@ function buildList(id,list){
     <div class="surah-item ${i===0?'active':''}" onclick="activePlaylist=${id==='surahListRuqyah'?'RUQYAH_LIST':id==='surahListBaqarah'?'BAQARAH_LIST':'DUA_LIST'};playSurah(${i})">
       <div class="si-num">${i+1}</div>
       <div class="si-info"><div class="si-arabic">${s.arabic}</div><div class="si-bn">${s.bn} — ${s.info}</div></div>
-      <div class="si-play">${i===0?'⏸':'▶'}</div>
+      <div class="si-play">▶</div>
     </div>`).join('');
 }
 
@@ -1416,6 +1425,7 @@ function toggleYT(){
 document.querySelectorAll('.tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
     const t=tab.dataset.tab;
+    if(t==='community'){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));tab.classList.add('active');document.getElementById('community')?.scrollIntoView({behavior:'smooth'});return;}
     document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
     document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
     tab.classList.add('active');
@@ -1438,6 +1448,7 @@ function runSymptomCheck(){
   const res=document.getElementById('diagResult');
   if(!total){res.style.display='none';return;}
   res.style.display='block';
+  res.scrollIntoView({behavior:'smooth',block:'nearest'});
   const t=document.getElementById('diagTitleText'),d=document.getElementById('diagDescText'),b=document.getElementById('diagBtnAction');
   if(eye>=magic&&eye>=jinn){t.textContent='নজর/হাসাদ সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো নজরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। সূরা ফাতিহা ও ফালাক পড়া/শোনা যেতে পারে। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');switchTilawatMode('ruqyah',document.querySelector('#tilawat .sub-mode-btn'));setTimeout(()=>playSurah(0),200);};}
   else if(magic>=jinn){t.textContent='সিহর সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো সিহরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। বাকারাহর শেষ আয়াত ও রুকইয়াহ পানি সম্পর্কে নিচের পদ্ধতি দেখুন। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');switchTilawatMode('ruqyah',document.querySelector('#tilawat .sub-mode-btn'));setTimeout(()=>playSurah(5),200);};}
@@ -1467,7 +1478,7 @@ function toggleAccordion(id,btn){
   const c=document.getElementById(id);
   const was=c.classList.contains('open');
   document.querySelectorAll('.accordion-content').forEach(x=>x.classList.remove('open'));
-  document.querySelectorAll('.accordion-trigger').forEach(b=>b.textContent='📖 পড়তে চাপুন');
+  document.querySelectorAll('.accordion-trigger').forEach(b=>{b.textContent=b.dataset.orig||'📖 পড়তে চাপুন';});
   if(!was){c.classList.add('open');btn.textContent='❌ বন্ধ করুন';}
 }
 
@@ -1478,7 +1489,7 @@ let timerInterval=null,timerLeft=120,timerRunning=false;
 function toggleDiagnosticTimer(){
   const btn=document.getElementById('timerStartBtn');
   if(timerRunning){clearInterval(timerInterval);timerRunning=false;btn.textContent='টাইমার শুরু করুন';}
-  else{timerRunning=true;btn.textContent='থামান';timerInterval=setInterval(()=>{timerLeft--;updateTimerUI();if(timerLeft<=0){clearInterval(timerInterval);timerRunning=false;btn.textContent='পরীক্ষা শেষ!';triggerBeep();showToast('২ মিনিটের জপ সম্পন্ন!');}},1000);}
+  else{if(timerLeft<=0){timerLeft=120;updateTimerUI();}timerRunning=true;btn.textContent='থামান';timerInterval=setInterval(()=>{timerLeft--;updateTimerUI();if(timerLeft<=0){clearInterval(timerInterval);timerRunning=false;btn.textContent='পরীক্ষা শেষ!';triggerBeep();showToast('২ মিনিটের জপ সম্পন্ন!');}},1000);}
 }
 function resetDiagnosticTimer(){clearInterval(timerInterval);timerLeft=120;timerRunning=false;document.getElementById('timerStartBtn').textContent='টাইমার শুরু করুন';updateTimerUI();}
 function updateTimerUI(){
@@ -1493,18 +1504,18 @@ function updateTimerUI(){
 // পানির সেশন: ১২ বার তিলাওয়াত — ফাতিহা ১, ইখলাস ৩, ফালাক ৩, নাস ৩, কুরসি ১,
 // বাকারার শেষ দুই আয়াত ১ (২৮৫+২৮৬ এক ধাপে)। ১২ বার শেষে থেমে যাবে, অটো রিপ্লে নয়।
 const WT_PHASES=[
-  {name:'সূরা আল-ফাতিহা',audio:[RUQYAH_LIST[0].audio]},
-  {name:'সূরা আল-ইখলাস (১/৩)',audio:[RUQYAH_LIST[1].audio]},
-  {name:'সূরা আল-ইখলাস (২/৩)',audio:[RUQYAH_LIST[1].audio]},
-  {name:'সূরা আল-ইখলাস (৩/৩)',audio:[RUQYAH_LIST[1].audio]},
-  {name:'সূরা আল-ফালাক (১/৩)',audio:[RUQYAH_LIST[2].audio]},
-  {name:'সূরা আল-ফালাক (২/৩)',audio:[RUQYAH_LIST[2].audio]},
-  {name:'সূরা আল-ফালাক (৩/৩)',audio:[RUQYAH_LIST[2].audio]},
-  {name:'সূরা আন-নাস (১/৩)',audio:[RUQYAH_LIST[3].audio]},
-  {name:'সূরা আন-নাস (২/৩)',audio:[RUQYAH_LIST[3].audio]},
-  {name:'সূরা আন-নাস (৩/৩)',audio:[RUQYAH_LIST[3].audio]},
-  {name:'আয়াতুল কুরসি',audio:[RUQYAH_LIST[4].audio]},
-  {name:'বাকারার শেষ দুই আয়াত',audio:[RUQYAH_LIST[5].audio,RUQYAH_LIST[6].audio]}
+  {name:'সূরা আল-ফাতিহা',audio:[RUQYAH_LIST[0].audio],ri:[0]},
+  {name:'সূরা আল-ইখলাস (১/৩)',audio:[RUQYAH_LIST[1].audio],ri:[1]},
+  {name:'সূরা আল-ইখলাস (২/৩)',audio:[RUQYAH_LIST[1].audio],ri:[1]},
+  {name:'সূরা আল-ইখলাস (৩/৩)',audio:[RUQYAH_LIST[1].audio],ri:[1]},
+  {name:'সূরা আল-ফালাক (১/৩)',audio:[RUQYAH_LIST[2].audio],ri:[2]},
+  {name:'সূরা আল-ফালাক (২/৩)',audio:[RUQYAH_LIST[2].audio],ri:[2]},
+  {name:'সূরা আল-ফালাক (৩/৩)',audio:[RUQYAH_LIST[2].audio],ri:[2]},
+  {name:'সূরা আন-নাস (১/৩)',audio:[RUQYAH_LIST[3].audio],ri:[3]},
+  {name:'সূরা আন-নাস (২/৩)',audio:[RUQYAH_LIST[3].audio],ri:[3]},
+  {name:'সূরা আন-নাস (৩/৩)',audio:[RUQYAH_LIST[3].audio],ri:[3]},
+  {name:'আয়াতুল কুরসি',audio:[RUQYAH_LIST[4].audio],ri:[4]},
+  {name:'বাকারার শেষ দুই আয়াত',audio:[RUQYAH_LIST[5].audio,RUQYAH_LIST[6].audio],ri:[5,6]}
 ];
 let wtPhaseIdx=0,wtTrackIdx=0,wtRunning=false,wtInterval=null,wtStarted=false;
 function wtPlayCurrent(){
@@ -1512,6 +1523,11 @@ function wtPlayCurrent(){
   audioEl.pause();
   audioEl.src=phase.audio[wtTrackIdx];
   audioEl.load();
+  const s=RUQYAH_LIST[phase.ri[wtTrackIdx]];
+  if(s){apTitle.textContent=phase.name;apSub.textContent=s.qari;apCover.textContent=s.cover;
+  document.getElementById('npArabic').textContent=s.arabic;
+  document.getElementById('npBn').textContent=phase.name;
+  document.getElementById('npInfo').textContent='ক্বারী: '+s.qari;}
   audioEl.play().catch(()=>{});
   prefetchAudio(phase.audio[wtTrackIdx+1]||(WT_PHASES[wtPhaseIdx+1]&&WT_PHASES[wtPhaseIdx+1].audio[0]));
   updateWtUI();
@@ -1523,14 +1539,14 @@ function wtOnAudioEnded(){
   if(wtTrackIdx<phase.audio.length){wtPlayCurrent();return;}
   wtTrackIdx=0;
   wtPhaseIdx++;
-  if(wtPhaseIdx>=WT_PHASES.length){wtReset(true);return;}
+  if(wtPhaseIdx>=WT_PHASES.length){triggerBeep();showToast('💧 শেষ ধাপ শেষ — এখন পানিতে ৩ বার ফুঁ দিন!');wtReset(true);return;}
   triggerBeep();showToast('💧 এখন পানিতে ৩ বার ফুঁ দিন!');
   wtPlayCurrent();
 }
 function wtControl(){
-  if(!wtStarted){wtStarted=true;wtPhaseIdx=0;wtTrackIdx=0;document.getElementById('wtStartBtn').textContent='⏸ থামান';wtRunning=true;wtPlayCurrent();wtInterval=setInterval(wtTick,1000);}
+  if(!wtStarted){wtStarted=true;wtPhaseIdx=0;wtTrackIdx=0;document.getElementById('wtStartBtn').textContent='⏸ থামান';wtRunning=true;showToast('🕌 বিসমিল্লাহ বলে শুরু করুন — পানি মুখের কাছে রাখুন');wtPlayCurrent();wtInterval=setInterval(wtTick,1000);}
   else if(wtRunning){wtRunning=false;audioEl.pause();clearInterval(wtInterval);document.getElementById('wtStartBtn').textContent='▶ চালু করুন';}
-  else{wtRunning=true;wtPlayCurrent();document.getElementById('wtStartBtn').textContent='⏸ থামান';wtInterval=setInterval(wtTick,1000);}
+  else{wtRunning=true;audioEl.play().catch(()=>{});document.getElementById('wtStartBtn').textContent='⏸ থামান';wtInterval=setInterval(wtTick,1000);}
 }
 function wtTick(){
   if(!wtRunning)return;
@@ -1584,6 +1600,15 @@ function updatePaperVerses(){
   box.innerHTML=`<div class="p-text" style="font-size:${currentFontSize}">${text||'কোনো সূরা নির্বাচন করা হয়নি'}</div>`;
   const print=document.getElementById('printable-ruqyah-paper');
   if(print)print.innerHTML=`<div class="p-text" style="font-size:${currentFontSize}">${text}</div>`;
+  fitPaperText(box);fitPaperText(print);
+}
+function fitPaperText(box){
+  if(!box)return;
+  const t=box.querySelector('.p-text');if(!t)return;
+  let size=parseFloat(currentFontSize)||10;
+  t.style.fontSize=size+'pt';
+  let guard=0;
+  while(box.scrollHeight>box.clientHeight+1&&size>5&&guard<30){size-=0.5;t.style.fontSize=size+'pt';guard++;}
 }
 function updatePaperFontSize(v){
   currentFontSize=v+'pt';
@@ -1675,15 +1700,7 @@ function copyTextById(id,msg){
   const d=document.createElement('textarea');d.value=t;document.body.appendChild(d);d.select();document.execCommand('copy');document.body.removeChild(d);
   showToast(msg);
 }
-function showCustomModal(title,desc,cb=null){
-  document.getElementById('modalTitle').textContent=title;
-  document.getElementById('modalDesc').textContent=desc;
-  const b=document.getElementById('modalConfirmBtn');
-  if(cb){b.style.display='inline-block';b.onclick=()=>{cb();closeCustomModal();};}
-  else b.style.display='none';
-  document.getElementById('customModal').classList.add('show');
-}
-function closeCustomModal(){document.getElementById('customModal').classList.remove('show');}
+
 
 // ════════════════════════════════════════
 //   LIVE CHAT (MT Studio AI — ChatGPT/OpenAI)
@@ -1701,7 +1718,10 @@ const OPENAI_MODEL='gpt-4o-mini';
 
 let lcHistory=[],lcBusy=false;
 function toggleLiveChat(){
-  document.getElementById('liveChatPanel').classList.toggle('open');
+  const p=document.getElementById('liveChatPanel');
+  const opening=!p.classList.contains('open');
+  p.classList.toggle('open');
+  if(opening)document.getElementById('lcQuickBtns').style.display='';
 }
 function lcAddMsg(role,text){
   const m=document.getElementById('lcMessages');
@@ -1725,20 +1745,25 @@ async function lcSend(text){
   try{
       const sysMsg={role:'system',content:LC_SYS};
       const userMsg={role:'user',content:msg};
+      lcHistory.push(userMsg);
+      if(lcHistory.length>10)lcHistory=lcHistory.slice(-10);
+      const msgs=[sysMsg,...lcHistory.slice(-8)];
       let reply='';
       if(CHAT_PROXY_URL){
-        const res=await fetch(CHAT_PROXY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[sysMsg,userMsg]})});
+        const res=await fetch(CHAT_PROXY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:msgs})});
         const data=await res.json();
         reply=data.reply||data.choices?.[0]?.message?.content||'দুঃখিত, সংযোগে সমস্যা।';
       } else {
         const key=getChatKey();
         if(!key){ lcHideTyping(); lcAddMsg('bot','AI চ্যাট চালাতে উপরে OpenAI API key দিন (শুধু এই ডিভাইসে থাকবে), অথবা সার্ভার-সাইড প্রক্সি সেট করুন। key কখনো পাবলিক কোডে বসাবেন না।'); document.getElementById('lcSendBtn').disabled=false; lcBusy=false; return; }
-        const res=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:OPENAI_MODEL,messages:[sysMsg,userMsg],temperature:0.3,max_tokens:600})});
+        const res=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:OPENAI_MODEL,messages:msgs,temperature:0.3,max_tokens:600})});
         const data=await res.json();
         if(!res.ok){ throw new Error(data.error?.message||('HTTP '+res.status)); }
         reply=data.choices?.[0]?.message?.content||'দুঃখিত, সংযোগে সমস্যা।';
       }
       lcHideTyping();lcAddMsg('bot',reply);
+      lcHistory.push({role:'assistant',content:reply});
+      if(lcHistory.length>10)lcHistory=lcHistory.slice(-10);
     }catch(e){lcHideTyping();lcAddMsg('bot','দুঃখিত, চ্যাটে সমস্যা হয়েছে। key ভুল/মেয়াদোত্তীর্ণ হলে বা কোটা শেষ হলে এটা হতে পারে। দোয়াসমূহ ট্যাবে সুরক্ষার দোয়া দেওয়া আছে।');}
   lcBusy=false;document.getElementById('lcSendBtn').disabled=false;
 }
@@ -1754,7 +1779,6 @@ window.addEventListener('scroll',()=>document.getElementById('scrollBtn').classL
 document.getElementById('scrollBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 window.addEventListener('online',()=>document.getElementById('offlineBanner').classList.remove('show'));
 window.addEventListener('offline',()=>document.getElementById('offlineBanner').classList.add('show'));
-if(!navigator.onLine)document.getElementById('offlineBanner').classList.add('show');
 
 try{
   const manifest={name:"রুকইয়াহ শিফা",short_name:"রুকইয়াহ শিফা",start_url:"./",display:"standalone",background_color:"#080b14",theme_color:"#0a0e1a",lang:"bn",icons:[{src:"https://allahborosa.netlify.app/logo.png",sizes:"1024x1024",type:"image/png"}]};
@@ -1791,6 +1815,10 @@ async function initApp(){
   document.getElementById('npArabic').textContent=s.arabic;
   document.getElementById('npBn').textContent=s.bn;
   setStatus('প্রস্তুত','paused');
+  audioEl.volume=0.8;
+  document.querySelectorAll('.accordion-trigger').forEach(b=>{b.dataset.orig=b.textContent;});
+  const __wtList=document.getElementById('wtPhaseList');
+  if(__wtList){const __bn=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);__wtList.innerHTML=WT_PHASES.map((p,i)=>`<li>${__bn(i+1)}. ${p.name}</li>`).join('');}
 
   // Tasbih
   onTasbihSelect();
@@ -1807,6 +1835,7 @@ async function initApp(){
     document.getElementById('totalViews').textContent='—';
     document.getElementById('totalLikesBar').textContent='—';
     document.getElementById('avgRatingBar').textContent='—';
+    setPill('totalViews',false);setPill('totalLikesBar',false);setPill('avgRatingBar',false);
     document.getElementById('commentsList').innerHTML='<div class="comments-loading">স্টোরেজ লোড হয়নি।</div>';
   }
 
