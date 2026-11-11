@@ -1439,9 +1439,9 @@ function runSymptomCheck(){
   if(!total){res.style.display='none';return;}
   res.style.display='block';
   const t=document.getElementById('diagTitleText'),d=document.getElementById('diagDescText'),b=document.getElementById('diagBtnAction');
-  if(eye>=magic&&eye>=jinn){t.textContent='নজর/হাসাদ সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো নজরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। সূরা ফাতিহা ও ফালাক পড়া/শোনা যেতে পারে। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');setTimeout(()=>playSurah(0),200);};}
-  else if(magic>=jinn){t.textContent='সিহর সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো সিহরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। বাকারাহর শেষ আয়াত ও রুকইয়াহ পানি সম্পর্কে নিচের পদ্ধতি দেখুন। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');setTimeout(()=>playSurah(5),200);};}
-  else{t.textContent='জ্বীনের স্পর্শ সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো জ্বীনের স্পর্শের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। আয়াতুল কুরসি ও নাস মনোযোগে শুনুন। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');setTimeout(()=>playSurah(4),200);};}
+  if(eye>=magic&&eye>=jinn){t.textContent='নজর/হাসাদ সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো নজরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। সূরা ফাতিহা ও ফালাক পড়া/শোনা যেতে পারে। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');switchTilawatMode('ruqyah',document.querySelector('#tilawat .sub-mode-btn'));setTimeout(()=>playSurah(0),200);};}
+  else if(magic>=jinn){t.textContent='সিহর সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো সিহরের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। বাকারাহর শেষ আয়াত ও রুকইয়াহ পানি সম্পর্কে নিচের পদ্ধতি দেখুন। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');switchTilawatMode('ruqyah',document.querySelector('#tilawat .sub-mode-btn'));setTimeout(()=>playSurah(5),200);};}
+  else{t.textContent='জ্বীনের স্পর্শ সম্পর্কিত সম্ভাব্য নির্দেশনা';d.textContent='এই লক্ষণগুলো জ্বীনের স্পর্শের সাথে মিলতে পারে, তবে এটা নিশ্চিত নির্ণয় নয়। আয়াতুল কুরসি ও নাস মনোযোগে শুনুন। শারীরিক সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।';b.onclick=()=>{openTab('tilawat');switchTilawatMode('ruqyah',document.querySelector('#tilawat .sub-mode-btn'));setTimeout(()=>playSurah(4),200);};}
 }
 
 // ════════════════════════════════════════
