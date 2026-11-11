@@ -1,5 +1,16 @@
 # Netlify সেটিংস — functions ফোল্ডার ঘোষণা।
 # আপনার সাইটের publish/build সেটিংস আগে থেকে ঠিক থাকলে সেগুলো এখানে
-# বদলাবেন না; শুধু এই functions সেটিংসটুকু দরকার।
+# বদলাবেন না; publish = "." মানে রিপোর রুট থেকেই সাইট পাবলিশ হয়।
 [build]
+  publish = "."
   functions = "netlify/functions"
+
+# সাধারণ নিরাপত্তা হেডার।
+# Content-Security-Policy ইচ্ছা করে দেওয়া হয়নি — সাইটে inline script
+# ও inline style আছে, তাই CSP দিলে সাইট ভেঙে যাবে।
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "no-referrer-when-downgrade"
