@@ -1382,7 +1382,7 @@ document.getElementById('apFwd').addEventListener('click',()=>{audioEl.currentTi
 // পরের ট্র্যাক আগে থেকে টেনে রাখে, যাতে চাপলেই চলে (ল্যাগ কমে)
 const __prefetchAudioEl=new Audio();
 function prefetchAudio(url){if(!url)return;try{__prefetchAudioEl.preload='auto';__prefetchAudioEl.src=url;__prefetchAudioEl.load();}catch(e){}}
-function playSurah(idx){
+function playSurah(idx,autoplay=true){
   clearTimeout(advanceTimer);
   if(wtStarted)wtReset();
   currentTrackIndex=idx;
@@ -1404,7 +1404,8 @@ function playSurah(idx){
     });
   });
   if(ytWrap.classList.contains('open')){if(s.ytId)ytFrame.src=`https://www.youtube.com/embed/${s.ytId}?autoplay=1&rel=0`;else{ytWrap.classList.remove('open');ytFrame.src='';document.getElementById('ytToggleBtn').textContent='▶ YouTube ব্যাকআপ';}}
-  audioEl.play().then(()=>apPlay.textContent='⏸').catch(()=>setStatus('ট্যাপ করুন','paused'));
+  if(autoplay){audioEl.play().then(()=>apPlay.textContent='⏸').catch(()=>setStatus('ট্যাপ করুন','paused'));}
+  else{apPlay.textContent='▶';}
   prefetchAudio(activePlaylist[(idx+1)%activePlaylist.length].audio);
 }
 
@@ -1425,6 +1426,9 @@ function switchTilawatMode(mode,btn){
   if(mode==='ruqyah')activePlaylist=RUQYAH_LIST;
   else if(mode==='baqarah')activePlaylist=BAQARAH_LIST;
   else activePlaylist=DUA_LIST;
+  // প্লেয়ার যেন চাপা ট্যাবের সাথেই থাকে: নতুন ট্যাবের প্রথম গানটা প্লেয়ারে বসান (না বাজিয়ে, বাজানোর জন্য প্রস্তুত)।
+  // পানির সেশন চললে প্লেয়ারে হাত দেওয়া যাবে না।
+  if(!wtStarted)playSurah(0,false);
 }
 
 function toggleYT(){
